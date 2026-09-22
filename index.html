@@ -112,7 +112,8 @@ nav a.active{
   background:rgba(200,16,46,.10);font-weight:600;
   border-radius:8px;
 }
-nav a .ni{display:none;}
+nav a .ni{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.7;}
+nav a:hover .ni, nav a.active .ni{opacity:1;}
 .nav-sep{margin:5px 12px;border:none;border-top:1px solid var(--borde);}
 .nav-cat{
   font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
@@ -743,22 +744,22 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
     </select>
   </div>
   <nav>
-    <a class="active" data-sec="dashboard" data-modo="admin" onclick="ir('dashboard')"><span class="ni"></span>Dashboard</a>
-    <a data-sec="agenda" data-modo="admin,barbero" onclick="ir('agenda')"><span class="ni"></span>Agenda</a>
-    <a data-sec="clientes" data-modo="admin,barbero" onclick="ir('clientes')"><span class="ni"></span>Clientes</a>
-    <a data-sec="habituales" data-modo="admin" onclick="ir('habituales')"><span class="ni"></span>Habituales</a>
-    <a data-sec="espera" data-modo="admin,barbero" onclick="ir('espera')"><span class="ni"></span>Lista de espera</a>
-    <a data-sec="recordatorios" data-modo="admin,barbero" onclick="ir('recordatorios')"><span class="ni"></span>Recordatorios</a>
+    <a class="active" data-sec="dashboard" data-modo="admin" onclick="ir('dashboard')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>Dashboard</a>
+    <a data-sec="agenda" data-modo="admin,barbero" onclick="ir('agenda')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Agenda</a>
+    <a data-sec="clientes" data-modo="admin,barbero" onclick="ir('clientes')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Clientes</a>
+    <a data-sec="habituales" data-modo="admin" onclick="ir('habituales')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Habituales</a>
+    <a data-sec="espera" data-modo="admin,barbero" onclick="ir('espera')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Lista de espera</a>
+    <a data-sec="recordatorios" data-modo="admin,barbero" onclick="ir('recordatorios')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>Recordatorios</a>
     <hr class="nav-sep" data-modo="admin,barbero">
-    <a data-sec="finanzas" data-modo="admin,barbero" onclick="ir('finanzas')"><span class="ni"></span>Ingresos y Gastos</a>
+    <a data-sec="finanzas" data-modo="admin,barbero" onclick="ir('finanzas')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Ingresos y Gastos</a>
     <hr class="nav-sep" data-modo="admin">
-    <a data-sec="estadisticas" data-modo="admin" onclick="ir('estadisticas')"><span class="ni"></span>Estadísticas</a>
-    <a data-sec="prevision" data-modo="admin" onclick="ir('prevision')"><span class="ni"></span>Previsión</a>
-    <a data-sec="cierresem" data-modo="admin" onclick="ir('cierresem')"><span class="ni"></span>Cierre semanal</a>
-    <a data-sec="notas" data-modo="admin,barbero" onclick="ir('notas')"><span class="ni"></span>Notas del día</a>
-    <a data-sec="pedidos" data-modo="admin" onclick="ir('pedidos')"><span class="ni"></span>Pedidos</a>
+    <a data-sec="estadisticas" data-modo="admin" onclick="ir('estadisticas')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>Estadísticas</a>
+    <a data-sec="prevision" data-modo="admin" onclick="ir('prevision')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>Previsión</a>
+    <a data-sec="cierresem" data-modo="admin" onclick="ir('cierresem')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Cierre semanal</a>
+    <a data-sec="notas" data-modo="admin,barbero" onclick="ir('notas')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>Notas del día</a>
+    <a data-sec="pedidos" data-modo="admin" onclick="ir('pedidos')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>Pedidos</a>
     <hr class="nav-sep" data-modo="admin">
-    <a data-sec="configuracion" data-modo="admin" onclick="ir('configuracion')"><span class="ni"></span>Configuración</a>
+    <a data-sec="configuracion" data-modo="admin" onclick="ir('configuracion')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Configuración</a>
   </nav>
   <div class="sb-footer">
     <div class="sf-f" id="sf-f">—</div>
@@ -4898,86 +4899,4 @@ function renderCierreSemanal(){
   hist.innerHTML='';
   for(let i=1;i<=8;i++){
     const info=getInfoSemana(getLunesSemana(-i));
-    if(!info.citas.length&&!info.ingresos)continue;
-    const card=document.createElement('div');
-    renderCardCierre(info,card,false);
-    hist.appendChild(card);
-  }
-}
-function renderCardCierre(info,cont,esActual){
-  const {lunes,sab,citas,ingresos,totalGastos,balance,porDia}=info;
-  const rango=lunes.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' – '+sab.toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'});
-  const maxIng=Math.max(...porDia.map(d=>d.ingresos),1);
-  const bars=porDia.map(d=>{const h=Math.max(Math.round(d.ingresos/maxIng*36),d.ingresos>0?4:1);return`<div class="cs-bar ${d.ingresos===maxIng&&d.ingresos>0?'cs-max':''}" style="height:${h}px;" title="${fmtF(d.fecha)}: ${d.ingresos.toFixed(0)}€"></div>`;}).join('');
-  cont.className='cierre-sem-card';
-  cont.innerHTML=`
-    <div class="cs-top">
-      <div>
-        <div class="cs-rango">${esActual?'<span style="color:var(--plata);font-size:11px;">SEMANA ACTUAL — </span>':''}${rango}</div>
-        <div style="font-size:11px;color:var(--texto-dim);margin-top:2px;">${citas.length} cita${citas.length!==1?'s':''} · Balance: <span style="color:${balance>=0?'var(--verde)':'var(--rojo)'};">${balance>=0?'+':''}${balance.toFixed(2)}€</span></div>
-      </div>
-      <div style="text-align:right;">
-        <div class="cs-total">${ingresos.toFixed(0)}€</div>
-        ${totalGastos>0?`<div style="font-size:10px;color:var(--rojo);">−${totalGastos.toFixed(0)}€ gastos</div>`:''}
-      </div>
-    </div>
-    <div class="cs-bars">${bars}</div>
-    <div style="display:flex;gap:8px;margin-top:10px;font-size:11px;color:var(--texto-dim);">
-      ${['Lu','Ma','Mi','Ju','Vi','Sá'].map((d,i)=>`<span style="flex:1;text-align:center;">${d}<br><strong style="color:var(--texto);">${porDia[i]?porDia[i].citas:0}</strong></span>`).join('')}
-    </div>
-    <div style="margin-top:10px;display:flex;gap:8px;">
-      <button class="btn-s" style="flex:1;" onclick="exportarCierreSemanaConFecha('${fStr(info.lunes)}')">⬇ Exportar</button>
-    </div>
-  `;
-}
-function exportarCierreSemana(){
-  exportarCierreSemanaConFecha(fStr(getLunesSemana(0)));
-}
-function exportarCierreSemanaConFecha(lunesStr){
-  const lunes=new Date(lunesStr+'T00:00:00');
-  const info=getInfoSemana(lunes);
-  const rango=fStr(lunes)+' al '+fStr(info.sab);
-  const filas=[
-    ['CIERRE SEMANAL','Semana del '+rango,'','',''],
-    ['','','','',''],
-    ['DÍA','CITAS','INGRESOS €','GASTOS €','BALANCE €']
-  ];
-  info.porDia.forEach(d=>{
-    const gas=E.movimientos.filter(m=>m.fecha===d.fecha&&m.tipo==='gasto').reduce((a,m)=>a+m.importe,0);
-    filas.push([fmtF(d.fecha),d.citas,d.ingresos.toFixed(2),gas.toFixed(2),(d.ingresos-gas).toFixed(2)]);
-  });
-  filas.push(['','','','','']);
-  filas.push(['TOTAL',info.citas.length,info.ingresos.toFixed(2),info.totalGastos.toFixed(2),info.balance.toFixed(2)]);
-  filas.push(['','','','','']);
-  filas.push(['DETALLE MOVIMIENTOS','','','','']);
-  filas.push(['Fecha','Tipo','Descripción','Importe €','Método']);
-  E.movimientos.filter(m=>info.fechas.includes(m.fecha))
-    .sort((a,b)=>a.fecha.localeCompare(b.fecha))
-    .forEach(m=>filas.push([m.fecha,m.tipo,m.desc,m.importe.toFixed(2),m.metodo]));
-  descargarCSV(filas,'cierre_semana_'+rango.replace(/ /g,'_')+'.csv');
-  notif('Cierre semanal exportado','');
-}
-
-// ===== PWA SERVICE WORKER =====
-function registrarSW(){
-  if('serviceWorker' in navigator){
-    // El SW necesita un archivo externo para funcionar en HTTPS/GitHub Pages.
-    // Intentamos registrar sw.js si existe junto al index.html
-    navigator.serviceWorker.register('./sw.js',{scope:'./'})
-      .then(reg=>{
-        console.log('SW registrado — modo offline activo');
-        reg.addEventListener('updatefound',()=>{
-          const nw=reg.installing;
-          nw.addEventListener('statechange',()=>{if(nw.state==='installed'&&navigator.serviceWorker.controller)notif('App actualizada — recarga para ver los cambios','');});
-        });
-      })
-      .catch(()=>{
-        // sw.js no existe todavía — modo offline no disponible, pero la app funciona normal
-        console.log('sw.js no encontrado — modo offline desactivado. Sube sw.js para activarlo.');
-      });
-  }
-}
-registrarSW();
-</script>
-</body>
-</html>
+    if(!info.citas.length&&!info.ingresos)co
