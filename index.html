@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="BarberOS">
-<meta name="theme-color" content="#0B0C0E">
+<meta name="theme-color" content="#F2F3F5">
 <title>BarberOS — Luxcut</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -38,15 +38,15 @@
   --sidebar-accent:rgba(200,16,46,.15);
 }
 
-/* ——— MODO CLARO (estilo referencia — gris suave + blanco) ——— */
+/* ——— MODO CLARO (estilo SaaS moderno — ref. screenshot) ——— */
 [data-theme="light"]{
-  --bg:#F2F3F5; --surface:#FFFFFF; --surface2:#F7F8FA; --surface3:#EEF0F3;
-  --borde:#E4E6EA; --borde2:#D1D5DB;
-  --texto:#111827; --texto-dim:#6B7280; --texto-mid:#374151;
-  --acento:var(--lux-azul); --acento-dim:rgba(0,48,135,.06); --acento-borde:rgba(0,48,135,.15);
-  --topbar-bg:#FFFFFF; --sidebar-bg:#FFFFFF; --input-bg:#F7F8FA;
-  --hover:rgba(0,0,0,.04); --sombra:0 2px 12px rgba(0,0,0,.07);
-  --sidebar-accent:rgba(0,48,135,.08);
+  --bg:#EEF2F0; --surface:#FFFFFF; --surface2:#F7FAF8; --surface3:#EEF2F0;
+  --borde:rgba(0,0,0,.07); --borde2:rgba(0,0,0,.12);
+  --texto:#1A1F1E; --texto-dim:#7A8A86; --texto-mid:#3D4D49;
+  --acento:var(--lux-rojo); --acento-dim:rgba(200,16,46,.06); --acento-borde:rgba(200,16,46,.15);
+  --topbar-bg:rgba(255,255,255,0.80); --sidebar-bg:#E8EDEB; --input-bg:#F2F6F4;
+  --hover:rgba(0,0,0,.04); --sombra:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
+  --sidebar-accent:rgba(200,16,46,.08);
 }
 
 /* ——— BASE ——— */
@@ -60,6 +60,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--texto);min-
   display:flex;flex-direction:column;
   position:fixed;top:0;left:0;height:100vh;z-index:200;
   transition:background .2s;
+}
+[data-theme="light"] .sidebar{
+  box-shadow:1px 0 0 var(--borde);
 }
 /* Línea decorativa roja/azul arriba del sidebar */
 .sidebar::before{
@@ -86,18 +89,18 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--texto);min-
   color:var(--lux-plata-claro);line-height:1;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-[data-theme="light"] .sb-brand-name{color:#111827;}
+[data-theme="light"] .sb-brand-name{color:#1D1D1F;}
 .sb-brand-sub{font-size:9px;color:var(--texto-dim);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
 
 /* NAV */
 nav{padding:8px 0;flex:1;overflow-y:auto;}
 nav a{
   display:flex;align-items:center;gap:10px;
-  padding:9px 16px;color:var(--texto-dim);
-  text-decoration:none;font-size:13px;font-weight:500;
+  padding:8px 14px;color:var(--texto-dim);
+  text-decoration:none;font-size:13px;font-weight:400;
   cursor:pointer;border-left:3px solid transparent;
-  transition:all .15s;user-select:none;border-radius:0 8px 8px 0;
-  margin:1px 8px 1px 0;
+  transition:all .15s;user-select:none;border-radius:8px;
+  margin:1px 8px;
 }
 nav a:hover{color:var(--texto);background:var(--hover);}
 nav a.active{
@@ -105,11 +108,12 @@ nav a.active{
   border-left-color:var(--lux-rojo);font-weight:600;
 }
 [data-theme="light"] nav a.active{
-  color:var(--lux-azul);border-left-color:var(--lux-azul);
-  background:var(--acento-dim);
+  color:var(--lux-rojo);border-left-color:transparent;
+  background:rgba(200,16,46,.10);font-weight:600;
+  border-radius:8px;
 }
-nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
-.nav-sep{margin:5px 16px;border:none;border-top:1px solid var(--borde);}
+nav a .ni{display:none;}
+.nav-sep{margin:5px 12px;border:none;border-top:1px solid var(--borde);}
 .nav-cat{
   font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--texto-dim);padding:8px 16px 3px;opacity:.6;
@@ -126,6 +130,7 @@ nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
   background:var(--topbar-bg);
   position:sticky;top:0;z-index:100;
   transition:background .2s;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
 }
 .topbar h1{
   font-family:'Inter',sans-serif;font-size:17px;font-weight:700;
@@ -147,7 +152,7 @@ nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
 .btn-modo:hover{background:var(--surface3);color:var(--texto);}
 
 /* ——— SECTIONS ——— */
-.seccion{display:none;padding:24px 28px;}
+.seccion{display:none;padding:28px 32px;}
 .seccion.activa{display:block;}
 /* Page header style */
 .page-header{margin-bottom:22px;}
@@ -160,9 +165,11 @@ nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
 /* ——— CARDS ——— */
 .card{
   background:var(--surface);border:1px solid var(--borde);
-  border-radius:12px;padding:18px 20px;
+  border-radius:14px;padding:20px 22px;
   transition:background .2s,border-color .2s;
+  box-shadow:var(--sombra);
 }
+[data-theme="light"] .card{border-color:transparent;}
 .card-tit{
   font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
   color:var(--texto-dim);margin-bottom:14px;
@@ -173,9 +180,10 @@ nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
 .grid-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
 .stat-card{
   background:var(--surface);border:1px solid var(--borde);
-  border-radius:12px;padding:16px;position:relative;overflow:hidden;
-  transition:all .15s;
+  border-radius:14px;padding:18px;position:relative;overflow:hidden;
+  transition:all .15s;box-shadow:var(--sombra);
 }
+[data-theme="light"] .stat-card{border-color:transparent;}
 .stat-card:hover{border-color:var(--borde2);box-shadow:var(--sombra);}
 /* Top accent bar — rojo para las primeras, azul para las últimas */
 .stat-card::before{
@@ -190,6 +198,7 @@ nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
 .stat-val{font-family:'Bebas Neue',cursive;font-size:36px;color:var(--texto);line-height:1;}
 .stat-sub{font-size:11px;color:var(--texto-dim);margin-top:3px;}
 .stat-ico{position:absolute;right:14px;top:14px;font-size:22px;opacity:.07;}
+[data-theme="light"] .stat-ico{opacity:.12;}
 
 /* ——— BUTTONS ——— */
 /* Primary — gradiente rojo Luxcut */
@@ -232,7 +241,7 @@ nav a .ni{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
   font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;-webkit-appearance:none;
 }
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--lux-rojo);}
-[data-theme="light"] .fg input:focus,[data-theme="light"] .fg select:focus{border-color:var(--lux-azul);}
+[data-theme="light"] .fg input:focus,[data-theme="light"] .fg select:focus{border-color:var(--lux-rojo);}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--texto-dim);}
 .fg select option{background:var(--surface2);color:var(--texto);}
 
@@ -694,7 +703,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 <!-- PANTALLA DE LOGIN -->
 <div id="pantalla-login">
   <div class="login-box">
-    <div class="login-logo">✂</div>
+    <div class="login-logo"></div>
     <div class="login-marca" id="login-marca-txt">BarberOS</div>
     <div class="login-sub">Panel de gestión</div>
     <div class="fg"><label>Contraseña</label>
@@ -710,8 +719,8 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 <aside class="sidebar">
   <div class="sb-logo" onclick="abrirPerfil()">
     <div class="logo-wrap">
-      <div class="logo-placeholder" id="logo-sb">✂</div>
-      <div class="logo-edit">📷</div>
+      <div class="logo-placeholder" id="logo-sb"></div>
+      <div class="logo-edit"></div>
     </div>
     <div class="sb-brand">
       <div class="sb-brand-name" id="sb-nombre">BarberOS</div>
@@ -720,7 +729,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
   </div>
   <div style="padding:12px 16px 4px;">
     <div style="position:relative;">
-      <input type="text" id="buscador-global" placeholder="🔍 Buscar todo…" autocomplete="off"
+      <input type="text" id="buscador-global" placeholder=" Buscar todo…" autocomplete="off"
         oninput="buscadorGlobal(this.value)"
         onfocus="if(this.value)buscadorGlobal(this.value)"
         style="width:100%;background:var(--input-bg);border:1px solid var(--borde);color:var(--texto);padding:8px 12px;border-radius:7px;font-size:12px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;">
@@ -729,27 +738,27 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
   </div>
   <div style="padding:10px 16px 4px;">
     <select id="selector-rol" onchange="cambiarRol(this.value)" style="width:100%;background:var(--input-bg);border:1px solid var(--borde);color:var(--texto-mid);padding:7px 10px;border-radius:7px;font-size:11px;font-weight:600;outline:none;cursor:pointer;">
-      <option value="admin">👑 Administrador</option>
-      <option value="barbero">✂️ Recepción / Barbero</option>
+      <option value="admin"> Administrador</option>
+      <option value="barbero"> Recepción / Barbero</option>
     </select>
   </div>
   <nav>
-    <a class="active" data-sec="dashboard" data-modo="admin" onclick="ir('dashboard')"><span class="ni">📊</span>Dashboard</a>
-    <a data-sec="agenda" data-modo="admin,barbero" onclick="ir('agenda')"><span class="ni">📅</span>Agenda</a>
-    <a data-sec="clientes" data-modo="admin,barbero" onclick="ir('clientes')"><span class="ni">👤</span>Clientes</a>
-    <a data-sec="habituales" data-modo="admin" onclick="ir('habituales')"><span class="ni">⭐</span>Habituales</a>
-    <a data-sec="espera" data-modo="admin,barbero" onclick="ir('espera')"><span class="ni">⏱️</span>Lista de espera</a>
-    <a data-sec="recordatorios" data-modo="admin,barbero" onclick="ir('recordatorios')"><span class="ni">🔔</span>Recordatorios</a>
+    <a class="active" data-sec="dashboard" data-modo="admin" onclick="ir('dashboard')"><span class="ni"></span>Dashboard</a>
+    <a data-sec="agenda" data-modo="admin,barbero" onclick="ir('agenda')"><span class="ni"></span>Agenda</a>
+    <a data-sec="clientes" data-modo="admin,barbero" onclick="ir('clientes')"><span class="ni"></span>Clientes</a>
+    <a data-sec="habituales" data-modo="admin" onclick="ir('habituales')"><span class="ni"></span>Habituales</a>
+    <a data-sec="espera" data-modo="admin,barbero" onclick="ir('espera')"><span class="ni"></span>Lista de espera</a>
+    <a data-sec="recordatorios" data-modo="admin,barbero" onclick="ir('recordatorios')"><span class="ni"></span>Recordatorios</a>
     <hr class="nav-sep" data-modo="admin,barbero">
-    <a data-sec="finanzas" data-modo="admin,barbero" onclick="ir('finanzas')"><span class="ni">💰</span>Ingresos y Gastos</a>
+    <a data-sec="finanzas" data-modo="admin,barbero" onclick="ir('finanzas')"><span class="ni"></span>Ingresos y Gastos</a>
     <hr class="nav-sep" data-modo="admin">
-    <a data-sec="estadisticas" data-modo="admin" onclick="ir('estadisticas')"><span class="ni">📉</span>Estadísticas</a>
-    <a data-sec="prevision" data-modo="admin" onclick="ir('prevision')"><span class="ni">🔮</span>Previsión</a>
-    <a data-sec="cierresem" data-modo="admin" onclick="ir('cierresem')"><span class="ni">📊</span>Cierre semanal</a>
-    <a data-sec="notas" data-modo="admin,barbero" onclick="ir('notas')"><span class="ni">📝</span>Notas del día</a>
-    <a data-sec="pedidos" data-modo="admin" onclick="ir('pedidos')"><span class="ni">🛒</span>Pedidos</a>
+    <a data-sec="estadisticas" data-modo="admin" onclick="ir('estadisticas')"><span class="ni"></span>Estadísticas</a>
+    <a data-sec="prevision" data-modo="admin" onclick="ir('prevision')"><span class="ni"></span>Previsión</a>
+    <a data-sec="cierresem" data-modo="admin" onclick="ir('cierresem')"><span class="ni"></span>Cierre semanal</a>
+    <a data-sec="notas" data-modo="admin,barbero" onclick="ir('notas')"><span class="ni"></span>Notas del día</a>
+    <a data-sec="pedidos" data-modo="admin" onclick="ir('pedidos')"><span class="ni"></span>Pedidos</a>
     <hr class="nav-sep" data-modo="admin">
-    <a data-sec="configuracion" data-modo="admin" onclick="ir('configuracion')"><span class="ni">⚙️</span>Configuración</a>
+    <a data-sec="configuracion" data-modo="admin" onclick="ir('configuracion')"><span class="ni"></span>Configuración</a>
   </nav>
   <div class="sb-footer">
     <div class="sf-f" id="sf-f">—</div>
@@ -764,26 +773,26 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
       <span class="badge-hoy" id="badge-hoy">—</span>
     </div>
     <div class="topbar-right">
-      <button class="btn-p sm" onclick="abrirWalkIn()" style="padding:7px 14px;font-size:11px;">⚡ Cliente sin cita</button>
+      <button class="btn-p sm" onclick="abrirWalkIn()" style="padding:7px 14px;font-size:11px;">Cliente sin cita</button>
       <button class="btn-s" onclick="exportarExcel()" style="padding:7px 13px;font-size:11px;">⬇ Exportar</button>
-      <button class="btn-modo" id="btn-modo" onclick="toggleModo()">🌙</button>
+      <button class="btn-modo" id="btn-modo" onclick="toggleModo()"></button>
     </div>
   </div>
 
   <!-- DASHBOARD -->
   <section class="seccion activa" id="sec-dashboard">
     <div class="grid-stats">
-      <div class="stat-card"><div class="stat-ico">👤</div><div class="stat-lbl">Clientes totales</div><div class="stat-val" id="st-tot">0</div><div class="stat-sub">registrados</div></div>
+      <div class="stat-card"><div class="stat-ico"></div><div class="stat-lbl">Clientes totales</div><div class="stat-val" id="st-tot">0</div><div class="stat-sub">registrados</div></div>
       <div class="stat-card"><div class="stat-ico">⭐</div><div class="stat-lbl">Habituales</div><div class="stat-val" id="st-hab">0</div><div class="stat-sub">≥ 4 visitas</div></div>
-      <div class="stat-card"><div class="stat-ico">📅</div><div class="stat-lbl">Citas esta semana</div><div class="stat-val" id="st-sem">0</div><div class="stat-sub" id="st-sem-s">—</div></div>
-      <div class="stat-card"><div class="stat-ico">✂</div><div class="stat-lbl">Citas hoy</div><div class="stat-val" id="st-hoy">0</div><div class="stat-sub">programadas</div></div>
-      <div class="stat-card"><div class="stat-ico">💰</div><div class="stat-lbl">Ingresos hoy</div><div class="stat-val" id="st-ing">0€</div><div class="stat-sub">efectivo + tarjeta</div></div>
+      <div class="stat-card"><div class="stat-ico"></div><div class="stat-lbl">Citas esta semana</div><div class="stat-val" id="st-sem">0</div><div class="stat-sub" id="st-sem-s">—</div></div>
+      <div class="stat-card"><div class="stat-ico"></div><div class="stat-lbl">Citas hoy</div><div class="stat-val" id="st-hoy">0</div><div class="stat-sub">programadas</div></div>
+      <div class="stat-card"><div class="stat-ico"></div><div class="stat-lbl">Ingresos hoy</div><div class="stat-val" id="st-ing">0€</div><div class="stat-sub">efectivo + tarjeta</div></div>
     </div>
     <div class="dash-grid">
-      <div class="card"><div class="card-tit">📈 Clientes por día — semana actual</div><div class="bars" id="ch-sem"></div><div style="display:flex;gap:7px;margin-top:7px;" id="ch-sem-l"></div></div>
+      <div class="card"><div class="card-tit"> Clientes por día — semana actual</div><div class="bars" id="ch-sem"></div><div style="display:flex;gap:7px;margin-top:7px;" id="ch-sem-l"></div></div>
       <div class="card"><div class="card-tit">⏱ Horas pico</div><div class="horas-g" id="ch-horas"></div></div>
-      <div class="card"><div class="card-tit">📆 Histórico día de semana</div><div class="bars" id="ch-ds"></div><div style="display:flex;gap:7px;margin-top:7px;" id="ch-ds-l"></div></div>
-      <div class="card"><div class="card-tit">🔔 Próximas citas hoy</div><div id="prox-hoy" class="slots-grid" style="max-height:190px;overflow-y:auto;"></div></div>
+      <div class="card"><div class="card-tit"> Histórico día de semana</div><div class="bars" id="ch-ds"></div><div style="display:flex;gap:7px;margin-top:7px;" id="ch-ds-l"></div></div>
+      <div class="card"><div class="card-tit"> Próximas citas hoy</div><div id="prox-hoy" class="slots-grid" style="max-height:190px;overflow-y:auto;"></div></div>
     </div>
   </section>
 
@@ -791,10 +800,10 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
   <section class="seccion" id="sec-agenda">
     <div class="agenda-layout">
       <div>
-        <div class="busq-agenda"><input type="text" placeholder="🔍  Buscar cliente o fecha…" oninput="busqAgenda(this.value)"></div>
+        <div class="busq-agenda"><input type="text" placeholder="  Buscar cliente o fecha…" oninput="busqAgenda(this.value)"></div>
         <div id="fil-barbero-wrap" style="display:none;margin-bottom:12px;">
           <select class="ord-sel" id="fil-barbero" onchange="renderSlots();renderMes2();" style="width:100%;">
-            <option value="">👥 Todos los barberos</option>
+            <option value=""> Todos los barberos</option>
           </select>
         </div>
         <div class="tab-nav">
@@ -829,7 +838,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
       </div>
       <div>
         <div class="card">
-          <div class="card-tit">✂ Nueva Cita Rápida</div>
+          <div class="card-tit"> Nueva Cita Rápida</div>
           <div class="fg"><label>Hora</label><select id="f-h"><option value="">Seleccionar hora</option></select></div>
           <div class="fg"><label>Cliente</label><input type="text" id="f-n" placeholder="Buscar o nuevo cliente…" autocomplete="off" oninput="ac('f')"><div class="ac-list" id="ac-f" style="display:none;"></div></div>
           <div class="fg"><label>Teléfono</label><input type="tel" id="f-t" placeholder="600 000 000"></div>
@@ -853,11 +862,11 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
           <input type="hidden" id="f-c">
           <button class="btn-p" onclick="guardarCitaR()">Guardar cita</button>
           <div style="margin-top:10px;">
-            <button class="btn-s" style="width:100%;margin-top:4px;" onclick="abrirMultiTurno()">👨‍👦 Agendar varios turnos</button>
+            <button class="btn-s" style="width:100%;margin-top:4px;" onclick="abrirMultiTurno()">‍ Agendar varios turnos</button>
           </div>
         </div>
         <div class="card" style="margin-top:13px;">
-          <div class="card-tit">📋 Resumen del día</div>
+          <div class="card-tit"> Resumen del día</div>
           <div class="res-row"><span style="color:var(--texto-dim);">Total citas</span><span style="font-weight:700;" id="r-tot">0</span></div>
           <div class="res-row"><span style="color:var(--texto-dim);">Habituales</span><span style="font-weight:700;color:var(--plata);" id="r-hab">0</span></div>
           <div class="res-row"><span style="color:var(--texto-dim);">Nuevos</span><span style="font-weight:700;color:var(--verde);" id="r-new">0</span></div>
@@ -869,11 +878,11 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
   <!-- CLIENTES -->
   <section class="seccion" id="sec-clientes">
     <div class="cl-toolbar">
-      <input class="buscador" type="text" placeholder="🔍  Buscar por nombre o teléfono…" oninput="renderCl()">
+      <input class="buscador" type="text" placeholder="  Buscar por nombre o teléfono…" oninput="renderCl()">
       <div class="filtros">
         <button class="fbtn activo" onclick="setFC('todos',this)">Todos</button>
-        <button class="fbtn" onclick="setFC('habitual',this)">⭐ Habituales</button>
-        <button class="fbtn" onclick="setFC('ocasional',this)">💈 Ocasionales</button>
+        <button class="fbtn" onclick="setFC('habitual',this)">Habituales</button>
+        <button class="fbtn" onclick="setFC('ocasional',this)"> Ocasionales</button>
         <button class="fbtn" onclick="setFC('nuevo',this)">🆕 Nuevos</button>
       </div>
       <select class="ord-sel" id="ord-cl" onchange="renderCl()">
@@ -894,14 +903,14 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         </tr></thead>
         <tbody id="tbody-cl"></tbody>
       </table>
-      <div id="cl-vacio" class="empty" style="display:none;"><div class="empty-ico">👤</div>Sin resultados</div>
+      <div id="cl-vacio" class="empty" style="display:none;"><div class="empty-ico"></div>Sin resultados</div>
     </div>
   </section>
 
   <!-- HABITUALES -->
   <section class="seccion" id="sec-habituales">
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
-      <input class="buscador" type="text" placeholder="🔍  Buscar habitual…" oninput="renderHab()" style="max-width:260px;">
+      <input class="buscador" type="text" placeholder="  Buscar habitual…" oninput="renderHab()" style="max-width:260px;">
       <select class="ord-sel" id="ord-hab" onchange="renderHab()">
         <option value="visitas">Más visitas</option>
         <option value="alfa">A → Z</option>
@@ -923,7 +932,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         onchange="irAFechaFin(this.value)">
       <button class="nav-f-btn" onclick="navFin(1)">›</button>
       <button class="btn-s" onclick="hoyFin()">Hoy</button>
-      <button class="btn-s" onclick="document.getElementById('fin-date-picker').showPicker?.()??document.getElementById('fin-date-picker').click()" style="font-size:11px;">📅 Ir a fecha</button>
+      <button class="btn-s" onclick="document.getElementById('fin-date-picker').showPicker?.()??document.getElementById('fin-date-picker').click()" style="font-size:11px;"> Ir a fecha</button>
       <button class="btn-s" style="margin-left:auto;" onclick="exportarFinanzas()">⬇ Excel</button>
     </div>
     <div class="fin-grid-3">
@@ -932,7 +941,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         <!-- TPV — Cobro rápido por servicio -->
         <div class="card" style="margin-bottom:13px;" id="tpv-card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div class="card-tit" style="margin:0;">⚡ Cobro rápido</div>
+            <div class="card-tit" style="margin:0;">Cobro rápido</div>
             <button class="btn-s" onclick="toggleTPV()" id="tpv-toggle-btn" style="font-size:11px;padding:5px 10px;">▾ Ocultar</button>
           </div>
           <div id="tpv-body">
@@ -943,13 +952,13 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
                   <div style="font-size:13px;font-weight:700;color:var(--texto);" id="tpv-srv-nom">—</div>
                   <div style="font-size:22px;font-weight:800;color:var(--lux-rojo);font-family:'Bebas Neue',cursive;letter-spacing:1px;" id="tpv-srv-precio">0 €</div>
                 </div>
-                <button onclick="cancelarTPV()" style="background:none;border:none;color:var(--texto-dim);font-size:20px;cursor:pointer;line-height:1;">✕</button>
+                <button onclick="cancelarTPV()" style="background:none;border:none;color:var(--texto-dim);font-size:20px;cursor:pointer;line-height:1;"></button>
               </div>
               <div style="font-size:11px;color:var(--texto-dim);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Método de pago</div>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:12px;">
-                <button class="tpv-pay-btn" onclick="confirmarTPVCobro('efectivo')">💵<br><span>Efectivo</span></button>
-                <button class="tpv-pay-btn" onclick="confirmarTPVCobro('tarjeta')">💳<br><span>Tarjeta</span></button>
-                <button class="tpv-pay-btn" onclick="confirmarTPVCobro('bizum')">📱<br><span>Bizum</span></button>
+                <button class="tpv-pay-btn" onclick="confirmarTPVCobro('efectivo')">Efectivo</button>
+                <button class="tpv-pay-btn" onclick="confirmarTPVCobro('tarjeta')">Tarjeta</button>
+                <button class="tpv-pay-btn" onclick="confirmarTPVCobro('bizum')">Bizum</button>
               </div>
               <div style="display:flex;gap:7px;align-items:center;">
                 <label style="font-size:11px;color:var(--texto-dim);white-space:nowrap;">Precio:</label>
@@ -962,11 +971,11 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         </div>
 
         <div class="card" style="margin-bottom:13px;">
-          <div class="card-tit">📝 Registrar movimiento</div>
+          <div class="card-tit"> Registrar movimiento</div>
           <div class="fg"><label>Descripción</label><input type="text" id="in-d" placeholder="Ej: Corte + Barba — Carlos"></div>
           <div class="cols2">
             <div class="fg"><label>Importe (€)</label><input type="number" id="in-i" placeholder="0.00" min="0" step="0.01"></div>
-            <div class="fg"><label>Método</label><select id="in-m"><option value="efectivo">💵 Efectivo</option><option value="tarjeta">💳 Tarjeta</option><option value="bizum">📱 Bizum</option></select></div>
+            <div class="fg"><label>Método</label><select id="in-m"><option value="efectivo"> Efectivo</option><option value="tarjeta"> Tarjeta</option><option value="bizum"> Bizum</option></select></div>
           </div>
           <div style="display:flex;gap:7px;margin-bottom:10px;">
             <button class="ing-tab activo" id="fin-bi" onclick="setFinT('ingreso')">+ Ingreso</button>
@@ -975,11 +984,11 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
           <button class="btn-p" onclick="guardarMov()">Registrar</button>
         </div>
         <div class="card">
-          <div class="card-tit">📊 Resumen del día</div>
+          <div class="card-tit"> Resumen del día</div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
-            <div class="det-f"><div class="df-l">💵 Efectivo</div><div class="df-v tot-val pos" id="tot-ef">0 €</div></div>
-            <div class="det-f"><div class="df-l">💳 Tarjeta</div><div class="df-v tot-val pos" id="tot-ta">0 €</div></div>
-            <div class="det-f"><div class="df-l">📱 Bizum</div><div class="df-v tot-val pos" id="tot-bi">0 €</div></div>
+            <div class="det-f"><div class="df-l"> Efectivo</div><div class="df-v tot-val pos" id="tot-ef">0 €</div></div>
+            <div class="det-f"><div class="df-l"> Tarjeta</div><div class="df-v tot-val pos" id="tot-ta">0 €</div></div>
+            <div class="det-f"><div class="df-l"> Bizum</div><div class="df-v tot-val pos" id="tot-bi">0 €</div></div>
           </div>
           <div class="tot-box" style="margin-top:0;">
             <div><div class="tot-lbl">Ingresos</div><div class="tot-val pos" id="tot-in">0 €</div></div>
@@ -991,15 +1000,15 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 
       <!-- Columna central: movimientos del día -->
       <div class="card">
-        <div class="card-tit">📋 Movimientos del día</div>
+        <div class="card-tit"> Movimientos del día</div>
         <div id="lista-mov" style="display:flex;flex-direction:column;gap:5px;max-height:420px;overflow-y:auto;"></div>
-        <div id="mov-vac" class="empty" style="display:none;padding:20px 0;"><div class="empty-ico">💰</div>Sin movimientos</div>
+        <div id="mov-vac" class="empty" style="display:none;padding:20px 0;"><div class="empty-ico"></div>Sin movimientos</div>
       </div>
 
       <!-- Columna derecha: resumen mensual -->
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-          <div class="card-tit" style="margin:0;">📅 Resumen mensual</div>
+          <div class="card-tit" style="margin:0;"> Resumen mensual</div>
           <span id="fin-mes-lbl" style="font-size:11px;color:var(--texto-dim);"></span>
         </div>
         <div id="fin-resumen-mes" style="display:flex;flex-direction:column;gap:3px;max-height:500px;overflow-y:auto;"></div>
@@ -1014,17 +1023,17 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
     <!-- CIERRE DE CAJA -->
     <div class="card" style="margin-top:16px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-        <div class="card-tit" style="margin:0;">🧾 Cierre de caja — Citas del día</div>
+        <div class="card-tit" style="margin:0;"> Cierre de caja — Citas del día</div>
         <div style="display:flex;gap:6px;">
-          <button class="btn-s" onclick="cobrarTodas('efectivo')">💵 Cobrar todas en efectivo</button>
-          <button class="btn-s" onclick="cobrarTodas('tarjeta')">💳 Cobrar todas con tarjeta</button>
+          <button class="btn-s" onclick="cobrarTodas('efectivo')"> Cobrar todas en efectivo</button>
+          <button class="btn-s" onclick="cobrarTodas('tarjeta')"> Cobrar todas con tarjeta</button>
           <button class="btn-s" onclick="renderCierreCaja()">↺ Actualizar</button>
         </div>
       </div>
       <p style="font-size:12px;color:var(--texto-dim);margin-bottom:12px;">Confirma el cobro de cada servicio del día. Puedes cambiar el servicio y el precio antes de registrar.</p>
       <div id="cierre-lista"></div>
-      <div id="cierre-vacio" class="empty" style="display:none;padding:16px 0;"><div class="empty-ico">✅</div>Todas las citas del día están cobradas</div>
-      <div id="cierre-nocitas" class="empty" style="display:none;padding:16px 0;"><div class="empty-ico">📅</div>No hay citas en este día</div>
+      <div id="cierre-vacio" class="empty" style="display:none;padding:16px 0;"><div class="empty-ico"></div>Todas las citas del día están cobradas</div>
+      <div id="cierre-nocitas" class="empty" style="display:none;padding:16px 0;"><div class="empty-ico"></div>No hay citas en este día</div>
     </div>
   </section>
 
@@ -1037,11 +1046,11 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
     <div class="prev-grid" id="prev-kpis"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div class="card">
-        <div class="card-tit">📅 Previsión por día — próximos 7 días</div>
+        <div class="card-tit"> Previsión por día — próximos 7 días</div>
         <div id="prev-dias" style="display:flex;flex-direction:column;gap:6px;"></div>
       </div>
       <div class="card">
-        <div class="card-tit">✂ Servicios pendientes de cobrar</div>
+        <div class="card-tit"> Servicios pendientes de cobrar</div>
         <div id="prev-servicios" style="display:flex;flex-direction:column;gap:6px;"></div>
       </div>
     </div>
@@ -1071,7 +1080,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
       Cuando se cancele o elimine una cita, podrás avisar directamente por WhatsApp a quien esté en esta lista para ese hueco libre. También puedes apuntar aquí a cualquier cliente que pida un horario que ahora mismo no tienes disponible.
     </p>
     <div id="espera-lista" style="display:flex;flex-direction:column;gap:8px;"></div>
-    <div id="espera-vacio" class="empty" style="display:none;"><div class="empty-ico">⏱️</div>Nadie en lista de espera ahora mismo</div>
+    <div id="espera-vacio" class="empty" style="display:none;"><div class="empty-ico">⏱</div>Nadie en lista de espera ahora mismo</div>
   </section>
 
   <!-- RECORDATORIOS -->
@@ -1088,10 +1097,10 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
       Repasa las citas del día seleccionado y envía el recordatorio por WhatsApp a cada cliente con un clic. Por defecto se muestra el día de mañana.
     </p>
     <div style="display:flex;gap:8px;margin-bottom:14px;">
-      <button class="btn-p sm" onclick="enviarTodosRecordatorios()">💬 Marcar plan de envío</button>
+      <button class="btn-p sm" onclick="enviarTodosRecordatorios()"> Marcar plan de envío</button>
     </div>
     <div id="record-lista" style="display:flex;flex-direction:column;gap:8px;"></div>
-    <div id="record-vacio" class="empty" style="display:none;"><div class="empty-ico">📅</div>Sin citas para este día</div>
+    <div id="record-vacio" class="empty" style="display:none;"><div class="empty-ico"></div>Sin citas para este día</div>
   </section>
 
   <!-- CONFIGURACIÓN -->
@@ -1099,14 +1108,14 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
     <div class="cfg-grid">
       <!-- Horarios -->
       <div class="card" style="grid-column:1/-1;">
-        <div class="card-tit">🕐 Horario de apertura</div>
+        <div class="card-tit"> Horario de apertura</div>
         <div class="horario-grid" id="horario-grid"></div>
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;">
           <div class="fg" style="margin:0;flex:1;"><label>Duración por turno (min)</label><select id="cfg-duracion" onchange="guardarCfg()"><option value="30">30 min</option><option value="45">45 min</option><option value="60">1 hora</option></select></div>
           <div class="fg" style="margin:0;flex:1;"><label>Tiempo de descanso (min)</label><select id="cfg-descanso" onchange="guardarCfg()"><option value="0">Sin descanso</option><option value="5">5 min</option><option value="10">10 min</option></select></div>
         </div>
         <div style="margin-bottom:10px;">
-          <div class="card-tit" style="margin-bottom:8px;">⚡ Horarios excepcionales</div>
+          <div class="card-tit" style="margin-bottom:8px;"> Horarios excepcionales</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
             <div class="fg" style="margin:0;flex:1;min-width:110px;"><label>Fecha</label><input type="date" id="exc-fecha"></div>
             <div class="fg" style="margin:0;flex:1;min-width:90px;"><label>Hora inicio</label><input type="time" id="exc-ini"></div>
@@ -1121,7 +1130,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 
       <!-- Servicios -->
       <div class="card">
-        <div class="card-tit">✂ Servicios y precios</div>
+        <div class="card-tit"> Servicios y precios</div>
         <div id="lista-srv"></div>
         <div style="display:flex;gap:7px;margin-top:10px;">
           <div class="fg" style="margin:0;flex:2;"><input type="text" id="srv-n" placeholder="Nombre del servicio"></div>
@@ -1132,7 +1141,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 
       <!-- Perfil -->
       <div class="card">
-        <div class="card-tit">🏪 Información del negocio</div>
+        <div class="card-tit"> Información del negocio</div>
         <div class="fg"><label>Nombre del negocio</label><input type="text" id="cfg-nbiz" placeholder="BarberOS"></div>
         <div class="fg"><label>Ciudad / Dirección</label><input type="text" id="cfg-ciudad" placeholder="Tu ciudad"></div>
         <div class="fg"><label>Teléfono de contacto</label><input type="tel" id="cfg-tel" placeholder="600 000 000"></div>
@@ -1142,22 +1151,22 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 
       <!-- ACCESOS / RECEPCIÓN -->
       <div class="card" style="grid-column:1/-1;">
-        <div class="card-tit">👥 Accesos y modo recepción</div>
+        <div class="card-tit"> Accesos y modo recepción</div>
         <p style="font-size:12px;color:var(--texto-dim);margin-bottom:14px;">
           El modo "Recepción / Barbero" limita lo que se ve en el menú lateral. Marca abajo qué secciones puede usar el barbero — los cambios se aplican al instante. Protégelo con un PIN para que solo tú puedas volver a modo Administrador.
         </p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
           <div class="fg" style="margin:0;">
-            <label>🔐 Contraseña de acceso a la app</label>
+            <label> Contraseña de acceso a la app</label>
             <input type="password" id="cfg-login-pwd" maxlength="30" placeholder="Déjalo vacío para no pedir contraseña">
             <div style="font-size:10px;color:var(--texto-dim);margin-top:3px;">Se pide al abrir la URL en cualquier dispositivo.</div>
           </div>
-          <div class="fg" style="margin:0;"><label>🔒 PIN de administrador (4-8 dígitos)</label><input type="password" id="cfg-pin" maxlength="8" inputmode="numeric" placeholder="Para volver de modo barbero a admin"></div>
+          <div class="fg" style="margin:0;"><label> PIN de administrador (4-8 dígitos)</label><input type="password" id="cfg-pin" maxlength="8" inputmode="numeric" placeholder="Para volver de modo barbero a admin"></div>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:14px;">
           <button class="btn-p sm" onclick="guardarLoginPwd()">Guardar contraseña de acceso</button>
           <button class="btn-p sm" onclick="guardarPin()">Guardar PIN</button>
-          <button class="btn-s" onclick="abrirModalPlantillas()">💬 Plantillas WhatsApp</button>
+          <button class="btn-s" onclick="abrirModalPlantillas()"> Plantillas WhatsApp</button>
         </div>
 
         <div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--texto-dim);margin-bottom:10px;">
@@ -1165,15 +1174,15 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         </div>
         <div id="lista-permisos-barbero" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;"></div>
         <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="btn-s" onclick="marcarTodosPermisos(true)">✓ Marcar todo</button>
-          <button class="btn-s" onclick="marcarTodosPermisos(false)">✕ Desmarcar todo</button>
+          <button class="btn-s" onclick="marcarTodosPermisos(true)"> Marcar todo</button>
+          <button class="btn-s" onclick="marcarTodosPermisos(false)"> Desmarcar todo</button>
         </div>
       </div>
 
       <!-- MULTI-BARBERO -->
       <div class="card" style="grid-column:1/-1;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-          <div class="card-tit" style="margin:0;">✂️ Barberos del local</div>
+          <div class="card-tit" style="margin:0;"> Barberos del local</div>
           <label class="sw"><input type="checkbox" id="cfg-multibarbero" onchange="toggleMultibarbero(this.checked)"><span class="sw-s"></span></label>
         </div>
         <p style="font-size:12px;color:var(--texto-dim);margin-bottom:14px;" id="multibarbero-hint">
@@ -1189,7 +1198,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 
       <!-- GASTOS FIJOS -->
       <div class="card" style="grid-column:1/-1;">
-        <div class="card-tit">📑 Gastos fijos / variables del negocio</div>
+        <div class="card-tit"> Gastos fijos / variables del negocio</div>
         <p style="font-size:12px;color:var(--texto-dim);margin-bottom:12px;">
           Registra tus gastos recurrentes (alquiler, suministros, seguros…) para que el dashboard calcule cuánto necesitas facturar para cubrirlos.
         </p>
@@ -1208,29 +1217,29 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
           <div><div class="tot-lbl">Necesario facturar / semana</div><div class="tot-val" id="gf-total-sem">0 €</div></div>
           <div><div class="tot-lbl">Necesario facturar / día</div><div class="tot-val" id="gf-total-dia">0 €</div></div>
         </div>
-        <p style="font-size:11px;color:var(--texto-dim);margin-top:8px;">📌 Calculado sobre 22 días laborables/mes y 5 días laborables/semana de media. Este resumen también aparece en el Dashboard.</p>
+        <p style="font-size:11px;color:var(--texto-dim);margin-top:8px;"> Calculado sobre 22 días laborables/mes y 5 días laborables/semana de media. Este resumen también aparece en el Dashboard.</p>
       </div>
 
       <!-- BACKUP -->
       <div class="card" style="grid-column:1/-1;">
-        <div class="card-tit">💾 Copia de seguridad</div>
+        <div class="card-tit"> Copia de seguridad</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
           <div class="backup-card">
-            <div class="backup-ico">📤</div>
+            <div class="backup-ico"></div>
             <div class="backup-tit">Exportar backup</div>
             <div class="backup-desc">Descarga todos tus datos (clientes, citas, ingresos, configuración) en un archivo JSON. Guárdalo en un lugar seguro como copia de seguridad.</div>
             <button class="btn-p" onclick="exportarBackup()">⬇ Descargar backup</button>
           </div>
           <div class="backup-card">
-            <div class="backup-ico">📥</div>
+            <div class="backup-ico"></div>
             <div class="backup-tit">Restaurar backup</div>
-            <div class="backup-desc">Restaura tus datos desde un archivo de backup previamente descargado. <strong style="color:var(--rojo);">⚠️ Esto reemplazará todos los datos actuales.</strong></div>
-            <button class="btn-s" style="width:100%;padding:10px;" onclick="document.getElementById('inp-backup').click()">📂 Cargar archivo backup</button>
+            <div class="backup-desc">Restaura tus datos desde un archivo de backup previamente descargado. <strong style="color:var(--rojo);"> Esto reemplazará todos los datos actuales.</strong></div>
+            <button class="btn-s" style="width:100%;padding:10px;" onclick="document.getElementById('inp-backup').click()"> Cargar archivo backup</button>
             <input type="file" id="inp-backup" accept=".json" style="display:none;" onchange="importarBackup(this)">
           </div>
         </div>
         <div style="margin-top:14px;padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--borde);font-size:12px;color:var(--texto-dim);line-height:1.6;">
-          💡 <strong style="color:var(--texto-mid);">Recomendación:</strong> Exporta un backup al final de cada semana o mes. El archivo incluye absolutamente todos tus datos y se puede restaurar en cualquier dispositivo abriendo la app y cargando el JSON.
+           <strong style="color:var(--texto-mid);">Recomendación:</strong> Exporta un backup al final de cada semana o mes. El archivo incluye absolutamente todos tus datos y se puede restaurar en cualquier dispositivo abriendo la app y cargando el JSON.
         </div>
       </div>
     </div>
@@ -1262,27 +1271,27 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 
     <div class="stats-main-grid">
       <div class="card">
-        <div class="card-tit">📊 Citas por mes</div>
+        <div class="card-tit"> Citas por mes</div>
         <div class="month-bars" id="st-bars-mes"></div>
         <div style="display:flex;gap:5px;margin-top:6px;overflow-x:auto;" id="st-bars-mes-l"></div>
       </div>
       <div class="card">
-        <div class="card-tit">💳 Ingresos por método</div>
+        <div class="card-tit"> Ingresos por método</div>
         <div id="st-metodos" style="display:flex;flex-direction:column;gap:10px;margin-top:4px;"></div>
       </div>
     </div>
 
     <div class="stats-bottom-grid">
       <div class="card">
-        <div class="card-tit">🏆 Top clientes (visitas)</div>
+        <div class="card-tit"> Top clientes (visitas)</div>
         <div id="st-top-cl"></div>
       </div>
       <div class="card">
-        <div class="card-tit">✂ Servicios más pedidos</div>
+        <div class="card-tit"> Servicios más pedidos</div>
         <div id="st-top-srv"></div>
       </div>
       <div class="card">
-        <div class="card-tit">📆 Días más concurridos</div>
+        <div class="card-tit"> Días más concurridos</div>
         <div class="bars-tall" id="st-dias"></div>
         <div style="display:flex;gap:7px;margin-top:6px;" id="st-dias-l"></div>
       </div>
@@ -1300,7 +1309,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
       <div>
         <div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--texto-dim);margin-bottom:8px;">Notas guardadas</div>
         <div id="notas-lista"></div>
-        <div id="notas-vacio" class="empty" style="display:none;padding:20px 0;"><div class="empty-ico">📝</div>Sin notas todavía</div>
+        <div id="notas-vacio" class="empty" style="display:none;padding:20px 0;"><div class="empty-ico"></div>Sin notas todavía</div>
       </div>
       <div class="card" style="padding:0;overflow:hidden;">
         <div style="padding:14px 16px;border-bottom:1px solid var(--borde);display:flex;align-items:center;gap:10px;">
@@ -1308,7 +1317,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
           <span style="font-size:11px;color:var(--texto-dim);" id="nota-fecha-act">—</span>
           <div style="margin-left:auto;display:flex;gap:6px;">
             <button class="btn-p sm" onclick="guardarNotaActual()">Guardar</button>
-            <button class="btn-icon del" id="btn-del-nota" onclick="eliminarNotaActual()" style="display:none;">🗑</button>
+            <button class="btn-icon del" id="btn-del-nota" onclick="eliminarNotaActual()" style="display:none;"></button>
           </div>
         </div>
         <textarea class="nota-editor" id="nota-editor" placeholder="Escribe aquí tus notas del día: recordatorios, incidencias, ideas para el negocio, lista de material a pedir…"></textarea>
@@ -1318,10 +1327,10 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
   <!-- PEDIDOS -->
   <section class="seccion" id="sec-pedidos">
     <div class="ped-tabs">
-      <button class="tab-btn activo" id="ptab-pedido" onclick="setPedTab('pedido')">🛒 Pedido actual</button>
-      <button class="tab-btn" id="ptab-catalogo" onclick="setPedTab('catalogo')">📦 Catálogo / Almacén</button>
-      <button class="tab-btn" id="ptab-historial" onclick="setPedTab('historial')">📋 Historial</button>
-      <button class="tab-btn" id="ptab-proveedores" onclick="setPedTab('proveedores')">🏭 Proveedores</button>
+      <button class="tab-btn activo" id="ptab-pedido" onclick="setPedTab('pedido')"> Pedido actual</button>
+      <button class="tab-btn" id="ptab-catalogo" onclick="setPedTab('catalogo')"> Catálogo / Almacén</button>
+      <button class="tab-btn" id="ptab-historial" onclick="setPedTab('historial')"> Historial</button>
+      <button class="tab-btn" id="ptab-proveedores" onclick="setPedTab('proveedores')"> Proveedores</button>
     </div>
 
     <!-- PEDIDO ACTUAL -->
@@ -1331,14 +1340,14 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         <div>
           <div class="card" style="margin-bottom:12px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-              <div class="card-tit" style="margin:0;">🛒 Lista de pedido</div>
+              <div class="card-tit" style="margin:0;"> Lista de pedido</div>
               <div style="display:flex;gap:6px;">
                 <button class="btn-s" onclick="vaciarPedido()">Vaciar</button>
-                <button class="btn-p sm" onclick="finalizarPedido()">✓ Finalizar pedido</button>
+                <button class="btn-p sm" onclick="finalizarPedido()"> Finalizar pedido</button>
               </div>
             </div>
             <div id="ped-lineas"></div>
-            <div id="ped-vacio" class="empty" style="display:none;padding:20px 0;"><div class="empty-ico">🛒</div>El pedido está vacío.<br>Añade productos desde el catálogo.</div>
+            <div id="ped-vacio" class="empty" style="display:none;padding:20px 0;"><div class="empty-ico"></div>El pedido está vacío.<br>Añade productos desde el catálogo.</div>
             <div id="ped-total-box" style="display:none;margin-top:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--borde2);border-radius:8px;display:flex;justify-content:space-between;align-items:center;">
               <div>
                 <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--texto-dim);font-weight:700;">Total estimado</div>
@@ -1349,9 +1358,9 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
           </div>
           <!-- Alertas de stock bajo -->
           <div class="card">
-            <div class="card-tit">⚠️ Alertas de stock</div>
+            <div class="card-tit"> Alertas de stock</div>
             <div id="ped-alertas"></div>
-            <div id="ped-alertas-ok" style="font-size:12px;color:var(--verde);display:none;">✓ Todo el stock está en niveles correctos</div>
+            <div id="ped-alertas-ok" style="font-size:12px;color:var(--verde);display:none;"> Todo el stock está en niveles correctos</div>
           </div>
         </div>
 
@@ -1366,7 +1375,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
             <div id="ped-busq-res" style="max-height:300px;overflow-y:auto;"></div>
           </div>
           <div class="card" style="margin-top:12px;">
-            <div class="card-tit">📝 Notas del pedido</div>
+            <div class="card-tit"> Notas del pedido</div>
             <textarea id="ped-notas" placeholder="Instrucciones especiales, urgencias, descuentos acordados…" style="background:var(--input-bg);border:1px solid var(--borde);color:var(--texto);padding:10px 12px;border-radius:7px;font-size:13px;font-family:'Inter',sans-serif;outline:none;resize:none;width:100%;height:90px;transition:border-color .15s;" onfocus="this.style.borderColor='var(--plata-oscuro)'" onblur="this.style.borderColor='var(--borde)'"></textarea>
           </div>
         </div>
@@ -1376,7 +1385,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
     <!-- CATÁLOGO -->
     <div id="ptab-c-catalogo" style="display:none;">
       <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
-        <input class="buscador" type="text" id="cat-busq" placeholder="🔍  Buscar producto…" oninput="renderCatalogo()" style="max-width:280px;">
+        <input class="buscador" type="text" id="cat-busq" placeholder="  Buscar producto…" oninput="renderCatalogo()" style="max-width:280px;">
         <select class="ord-sel" id="cat-prv-fil" onchange="renderCatalogo()">
           <option value="">Todos los proveedores</option>
         </select>
@@ -1404,7 +1413,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
           </tr></thead>
           <tbody id="cat-tbody"></tbody>
         </table>
-        <div id="cat-vacio" class="empty" style="display:none;"><div class="empty-ico">📦</div>Sin productos en el catálogo</div>
+        <div id="cat-vacio" class="empty" style="display:none;"><div class="empty-ico"></div>Sin productos en el catálogo</div>
       </div>
     </div>
 
@@ -1420,7 +1429,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         <button class="btn-s" onclick="exportarHistorialPed()">⬇ Exportar</button>
       </div>
       <div id="hped-lista"></div>
-      <div id="hped-vacio" class="empty" style="display:none;"><div class="empty-ico">📋</div>Sin pedidos en el historial</div>
+      <div id="hped-vacio" class="empty" style="display:none;"><div class="empty-ico"></div>Sin pedidos en el historial</div>
     </div>
 
     <!-- PROVEEDORES -->
@@ -1430,7 +1439,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
         <button class="btn-p sm" onclick="abrirModalProv(null)">+ Añadir proveedor</button>
       </div>
       <div id="prov-lista" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;"></div>
-      <div id="prov-vacio" class="empty" style="display:none;"><div class="empty-ico">🏭</div>Sin proveedores. Añade uno para empezar.</div>
+      <div id="prov-vacio" class="empty" style="display:none;"><div class="empty-ico"></div>Sin proveedores. Añade uno para empezar.</div>
     </div>
   </section>
 
@@ -1440,10 +1449,10 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 <div class="modal-overlay" id="m-perfil">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit">🏪 Perfil del negocio <button class="modal-cerrar" onclick="cm('m-perfil')">✕</button></div>
+    <div class="modal-tit"> Perfil del negocio <button class="modal-cerrar" onclick="cm('m-perfil')"></button></div>
     <div class="perfil-foto-wrap">
-      <div class="perfil-foto-placeholder" id="p-foto-prev">✂</div>
-      <button class="btn-s" onclick="document.getElementById('p-foto-inp').click()">📷 Cambiar logo</button>
+      <div class="perfil-foto-placeholder" id="p-foto-prev"></div>
+      <button class="btn-s" onclick="document.getElementById('p-foto-inp').click()"> Cambiar logo</button>
       <input type="file" id="p-foto-inp" accept="image/*" style="display:none;" onchange="cargarLogo(this)">
       <span style="font-size:11px;color:var(--texto-dim);">El logo aparecerá en el sidebar</span>
     </div>
@@ -1458,7 +1467,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 <div class="modal-overlay" id="m-cita">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit">✂ Nueva Cita <button class="modal-cerrar" onclick="cm('m-cita')">✕</button></div>
+    <div class="modal-tit"> Nueva Cita <button class="modal-cerrar" onclick="cm('m-cita')"></button></div>
     <div class="fg"><label>Fecha</label><input type="date" id="mc-f"></div>
     <div class="fg"><label>Hora</label><input type="time" id="mc-h" step="1800"></div>
     <div class="fg"><label>Cliente</label><input type="text" id="mc-n" placeholder="Nombre…" autocomplete="off" oninput="ac('mc')"><div class="ac-list" id="ac-mc" style="display:none;"></div></div>
@@ -1475,7 +1484,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 <div class="modal-overlay" id="m-nc">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit">👤 Nuevo Cliente <button class="modal-cerrar" onclick="cm('m-nc')">✕</button></div>
+    <div class="modal-tit"> Nuevo Cliente <button class="modal-cerrar" onclick="cm('m-nc')"></button></div>
     <div class="fg"><label>Nombre completo</label><input type="text" id="nc-n" placeholder="Nombre y apellidos"></div>
     <div class="fg"><label>Teléfono</label><input type="tel" id="nc-t" placeholder="600 000 000"></div>
     <div class="fg"><label>Email</label><input type="email" id="nc-e" placeholder="email@…"></div>
@@ -1491,8 +1500,8 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
     <div class="modal-tit">
       <span id="det-tit">Cliente</span>
       <div style="display:flex;gap:6px;align-items:center;">
-        <button class="btn-icon" id="btn-edit-cl" onclick="toggleEditCliente()" title="Editar datos">✏️</button>
-        <button class="modal-cerrar" onclick="cm('m-det')">✕</button>
+        <button class="btn-icon" id="btn-edit-cl" onclick="toggleEditCliente()" title="Editar datos"></button>
+        <button class="modal-cerrar" onclick="cm('m-det')"></button>
       </div>
     </div>
     <div id="det-body"></div>
@@ -1503,7 +1512,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
 <div class="modal-overlay" id="m-multi">
   <div class="modal wide">
     <div class="modal-line"></div>
-    <div class="modal-tit">👨‍👦 Agendar Varios Turnos <button class="modal-cerrar" onclick="cm('m-multi')">✕</button></div>
+    <div class="modal-tit">‍ Agendar Varios Turnos <button class="modal-cerrar" onclick="cm('m-multi')"></button></div>
     <p style="font-size:12px;color:var(--texto-dim);margin-bottom:14px;">Agenda varios clientes consecutivos (padres con hijos, grupos, etc.) de una sola vez.</p>
     <div id="multi-turnos"></div>
     <button class="btn-s" onclick="addTurnoMulti()" style="width:100%;margin:8px 0;">+ Añadir turno</button>
@@ -1515,7 +1524,7 @@ input:checked+.sw-s:before{transform:translateX(18px);background:#fff;}
   </div>
 </div>
 
-<div class="notif" id="notif"><span id="n-ico">✅</span><span id="n-msg">Guardado</span></div>
+<div class="notif" id="notif"><span id="n-ico"></span><span id="n-msg">Guardado</span></div>
 
 <script>
 // ============ CONSTANTES ============
@@ -1626,8 +1635,8 @@ function cargar(){
   };
   if(E.cfg.pin===undefined)E.cfg.pin='';
   if(!E.cfg.plantillas)E.cfg.plantillas={
-    recordatorio:'Hola {nombre} 👋\n\nTe recuerdo tu cita en *{negocio}*:\n\n📅 {fecha}\n⏰ {hora}h\n✂ {servicio}\n\n¡Te esperamos! Si no puedes venir, avísanos con antelación. Gracias 🙏',
-    espera:'Hola {nombre} 👋\n\nTe escribimos desde *{negocio}*. ¡Tenemos un hueco disponible para ti! {servicio}\n\n¿Te viene bien? Dinos qué día y hora te va mejor 💈'
+    recordatorio:'Hola {nombre} 👋\n\nTe recuerdo tu cita en *{negocio}*:\n\n {fecha}\n⏰ {hora}h\n {servicio}\n\n¡Te esperamos! Si no puedes venir, avísanos con antelación. Gracias ',
+    espera:'Hola {nombre} \n\nTe escribimos desde *{negocio}*. ¡Tenemos un hueco disponible para ti! {servicio}\n\n¿Te viene bien? Dinos qué día y hora te va mejor '
   };
   if(E.cfg.pin===undefined)E.cfg.pin='';
   if(!E.permisosBarbero)E.permisosBarbero=['agenda','clientes','espera','recordatorios','finanzas','notas'];
@@ -1694,7 +1703,7 @@ function diasH(id){
 }
 function srvFav(id){const vs=vis(id);const ct={};vs.forEach(v=>{ct[v.servicio]=(ct[v.servicio]||0)+1;});const e=Object.entries(ct).sort((a,b)=>b[1]-a[1]);return e.length?e[0][0]:'—';}
 function tipoN(t){return t==='habitual'?0:t==='ocasional'?1:2;}
-function notif(msg,ico='✅'){document.getElementById('n-msg').textContent=msg;document.getElementById('n-ico').textContent=ico;const n=document.getElementById('notif');n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3000);}
+function notif(msg,ico=''){document.getElementById('n-msg').textContent=msg;document.getElementById('n-ico').textContent=ico;const n=document.getElementById('notif');n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3000);}
 function cm(id){document.getElementById(id).classList.remove('abierto');if(id==='m-det'){detEditando=false;detClienteId=null;}}
 
 // ============ HORAS DISPONIBLES (según horario) ============
@@ -1738,7 +1747,7 @@ function generarFranja(ini,fin,dur,des){
 
 // ============ MODO ============
 function toggleModo(){E.modo=E.modo==='dark'?'light':'dark';aplicarModo();guardar();}
-function aplicarModo(){document.documentElement.setAttribute('data-theme',E.modo);document.getElementById('btn-modo').textContent=E.modo==='dark'?'☀️':'🌙';}
+function aplicarModo(){document.documentElement.setAttribute('data-theme',E.modo);document.getElementById('btn-modo').textContent=E.modo==='dark'?'':'';}
 
 // ============ NAVEGACIÓN ============
 const TITS={dashboard:'Dashboard',agenda:'Agenda',clientes:'Clientes',habituales:'Habituales',finanzas:'Ingresos y Gastos',estadisticas:'Estadísticas',prevision:'Previsión de ingresos',cierresem:'Cierre semanal',notas:'Notas del día',pedidos:'Pedidos',espera:'Lista de espera',recordatorios:'Recordatorios',configuracion:'Configuración'};
@@ -1799,9 +1808,9 @@ function renderDash(){
   const ahoraStr=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   const ch=E.citas.filter(c=>c.fecha===hoy).sort((a,b)=>a.hora.localeCompare(b.hora));
   const co=document.getElementById('prox-hoy');
-  if(!ch.length){co.innerHTML='<div class="empty"><div class="empty-ico">📅</div>Sin citas hoy</div>';}
+  if(!ch.length){co.innerHTML='<div class="empty"><div class="empty-ico"></div>Sin citas hoy</div>';}
   else{co.innerHTML=ch.map(c=>{const cl=getC(c.clienteId);const pas=c.hora<ahoraStr;return`<div class="slot ${pas?'':'ocu'}" style="opacity:${pas?.45:1};">
-    <span class="slot-h">${c.hora}</span><div class="slot-info"><div class="slot-nom">${cl?cl.nombre:'—'}</div><div class="slot-tel">${cl?'📞 '+cl.telefono:''}</div><div class="slot-srv">${c.servicio}</div></div>
+    <span class="slot-h">${c.hora}</span><div class="slot-info"><div class="slot-nom">${cl?cl.nombre:'—'}</div><div class="slot-tel">${cl?' '+cl.telefono:''}</div><div class="slot-srv">${c.servicio}</div></div>
     ${tipo(c.clienteId)==='habitual'?'<span class="tag tag-h">⭐ Hab.</span>':''}
   </div>`;}).join('');}
   // No-shows del mes
@@ -1840,7 +1849,7 @@ function renderDash(){
           </div>
         </div>
         <div style="font-size:11px;color:var(--texto-dim);margin-top:8px;">
-          ${pctMes>=100?'✅ Gastos del mes cubiertos':'⚠️ Faltan '+(totalMes-ingMes).toFixed(0)+'€ este mes para cubrir gastos fijos'}
+          ${pctMes>=100?' Gastos del mes cubiertos':' Faltan '+(totalMes-ingMes).toFixed(0)+'€ este mes para cubrir gastos fijos'}
         </div>`;
     }
   }
@@ -1919,37 +1928,37 @@ function renderSlots(){
     slot.className='slot'+(cita?' ocu':'')+(esExc?' exc':'')+(cita&&cita.noShow?' noshow-slot':'');
     if(cita){
       const cl=getC(cita.clienteId);const t=tipo(cita.clienteId);
-      const tTag=t==='habitual'?'<span class="tag tag-h">⭐ Hab.</span>':t==='ocasional'?'<span class="tag tag-o">💈</span>':'<span class="tag tag-n">🆕</span>';
+      const tTag=t==='habitual'?'<span class="tag tag-h">⭐ Hab.</span>':t==='ocasional'?'<span class="tag tag-o"></span>':'<span class="tag tag-n">🆕</span>';
       const cobrada=esCitaCobrada(cita.id);
-      const cobroTag=cobrada?'<span class="slot-cobrado">✓ Cobrado</span>':`<span class="slot-pendiente-cobro" onclick="abrirCobro('${cita.id}')" title="Registrar cobro">💰 Cobrar</span>`;
+      const cobroTag=cobrada?'<span class="slot-cobrado"> Cobrado</span>':`<span class="slot-pendiente-cobro" onclick="abrirCobro('${cita.id}')" title="Registrar cobro"> Cobrar</span>`;
       // Barbero badge (solo si multi-barbero activo)
       const barbTag=(E.cfg.multibarberoActivo&&cita.barberoId)?getBarberoTag(cita.barberoId):'';
       // No-show badge
-      const nsTag=cita.noShow?'<span style="display:inline-flex;align-items:center;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;background:var(--rojo-dim);border:1px solid rgba(220,38,38,.3);color:var(--rojo);">✗ No vino</span>':'';
+      const nsTag=cita.noShow?'<span style="display:inline-flex;align-items:center;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;background:var(--rojo-dim);border:1px solid rgba(220,38,38,.3);color:var(--rojo);"> No vino</span>':'';
       // No-show button
       const nsBtn=cita.noShow
-        ?`<button class="btn-icon" style="opacity:.35;cursor:default;" title="Ya marcado como no-show">⚠️</button>`
-        :`<button class="btn-icon" onclick="marcarNoShow('${cita.id}')" title="Marcar como no presentado">👻</button>`;
+        ?`<button class="btn-icon" style="opacity:.35;cursor:default;" title="Ya marcado como no-show"></button>`
+        :`<button class="btn-icon" onclick="marcarNoShow('${cita.id}')" title="Marcar como no presentado"></button>`;
       // Badge sin agendar (walk-in)
-      const sinAgendarTag=cita.sinAgendar?'<span style="display:inline-flex;align-items:center;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;background:rgba(234,179,8,.12);border:1px solid rgba(234,179,8,.3);color:#CA8A04;">⚡ Sin cita previa</span>':'';
+      const sinAgendarTag=cita.sinAgendar?'<span style="display:inline-flex;align-items:center;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;background:rgba(234,179,8,.12);border:1px solid rgba(234,179,8,.3);color:#CA8A04;"> Sin cita previa</span>':'';
       slot.innerHTML=`<span class="slot-h">${h}</span>
         <div class="slot-info">
-          <div class="slot-nom">${cl?cl.nombre:'—'}${esExc?' <span class="exc-badge">⚡ Excep.</span>':''}${sinAgendarTag}${nsTag}</div>
-          <div class="slot-tel">${cl?'📞 '+cl.telefono:''}</div>
+          <div class="slot-nom">${cl?cl.nombre:'—'}${esExc?' <span class="exc-badge"> Excep.</span>':''}${sinAgendarTag}${nsTag}</div>
+          <div class="slot-tel">${cl?' '+cl.telefono:''}</div>
           <div class="slot-srv">${cita.servicio}${cita.notas?' · '+cita.notas:''}</div>
         </div>${tTag}${barbTag}${cobroTag}
         <div class="slot-act">
           ${nsBtn}
-          <button class="btn-icon grn" onclick="enviarWA('${cita.clienteId}','${cita.fecha}','${cita.hora}','${cita.servicio}')" title="Recordatorio WhatsApp">💬</button>
-          <button class="btn-icon" onclick="verDet('${cita.clienteId}')">👁</button>
-          <button class="btn-icon del" onclick="delCita('${cita.id}')">✕</button>
+          <button class="btn-icon grn" onclick="enviarWA('${cita.clienteId}','${cita.fecha}','${cita.hora}','${cita.servicio}')" title="Recordatorio WhatsApp"></button>
+          <button class="btn-icon" onclick="verDet('${cita.clienteId}')"></button>
+          <button class="btn-icon del" onclick="delCita('${cita.id}')"></button>
         </div>`;
     }else{
       slot.innerHTML=`<span class="slot-h">${h}</span><span class="slot-vac">Disponible</span><button class="btn-icon" onclick="relH('${h}')">+</button>`;
     }
     cont.appendChild(slot);
   });
-  if(!todasH.length){cont.innerHTML='<div class="empty"><div class="empty-ico">🚪</div>Día cerrado</div>';}
+  if(!todasH.length){cont.innerHTML='<div class="empty"><div class="empty-ico"></div>Día cerrado</div>';}
   actuResumen();
 }
 function navMes(d){E.mesOff+=d;renderMes2();}
@@ -1979,9 +1988,9 @@ function renderMes2(){
   const citasDM=E.citas.filter(c=>c.fecha===E.diaMes).sort((a,b)=>a.hora.localeCompare(b.hora));
   const sm=document.getElementById('slots-mes');
   sm.innerHTML=citasDM.length?citasDM.map(c=>{const cl=getC(c.clienteId);return`<div class="slot ocu">
-    <span class="slot-h">${c.hora}</span><div class="slot-info"><div class="slot-nom">${cl?cl.nombre:'—'}</div><div class="slot-tel">${cl?'📞 '+cl.telefono:''}</div><div class="slot-srv">${c.servicio}</div></div>
-    <div class="slot-act"><button class="btn-icon" onclick="verDet('${c.clienteId}')">👁</button><button class="btn-icon del" onclick="delCita('${c.id}')">✕</button></div>
-  </div>`;}).join(''):'<div class="empty" style="padding:14px 0;"><div class="empty-ico">📅</div>Sin citas</div>';
+    <span class="slot-h">${c.hora}</span><div class="slot-info"><div class="slot-nom">${cl?cl.nombre:'—'}</div><div class="slot-tel">${cl?' '+cl.telefono:''}</div><div class="slot-srv">${c.servicio}</div></div>
+    <div class="slot-act"><button class="btn-icon" onclick="verDet('${c.clienteId}')"></button><button class="btn-icon del" onclick="delCita('${c.id}')"></button></div>
+  </div>`;}).join(''):'<div class="empty" style="padding:14px 0;"><div class="empty-ico"></div>Sin citas</div>';
 }
 function busqAgenda(q){
   const br=document.getElementById('busq-res');const bl=document.getElementById('busq-lista');
@@ -1992,9 +2001,9 @@ function busqAgenda(q){
   E.citas.filter(c=>c.fecha.includes(qL.replace(/\//g,'-'))||fmtF(c.fecha).toLowerCase().includes(qL)).forEach(c=>{const cl=getC(c.clienteId);if(!res.find(r=>r.c.id===c.id))res.push({c,cl});});
   res.sort((a,b)=>b.c.fecha.localeCompare(a.c.fecha));
   bl.innerHTML=res.length?res.map(({c,cl})=>`<div class="slot ocu">
-    <span class="slot-h">${c.hora}</span><div class="slot-info"><div class="slot-nom">${cl?cl.nombre:'—'} <span style="font-size:11px;color:var(--texto-dim);">— ${fmtF(c.fecha)}</span></div><div class="slot-tel">${cl?'📞 '+cl.telefono:''}</div><div class="slot-srv">${c.servicio}</div></div>
-    <div class="slot-act"><button class="btn-icon" onclick="verDet('${c.clienteId}')">👁</button><button class="btn-icon del" onclick="delCita('${c.id}')">✕</button></div>
-  </div>`).join(''):'<div class="empty"><div class="empty-ico">🔍</div>Sin resultados</div>';
+    <span class="slot-h">${c.hora}</span><div class="slot-info"><div class="slot-nom">${cl?cl.nombre:'—'} <span style="font-size:11px;color:var(--texto-dim);">— ${fmtF(c.fecha)}</span></div><div class="slot-tel">${cl?' '+cl.telefono:''}</div><div class="slot-srv">${c.servicio}</div></div>
+    <div class="slot-act"><button class="btn-icon" onclick="verDet('${c.clienteId}')"></button><button class="btn-icon del" onclick="delCita('${c.id}')"></button></div>
+  </div>`).join(''):'<div class="empty"><div class="empty-ico"></div>Sin resultados</div>';
 }
 function actuResumen(){
   const d=E.diaS;const cd=E.citas.filter(c=>c.fecha===d);
@@ -2028,7 +2037,7 @@ function guardarCitaR(){
   const recurFin=document.getElementById('f-recur-fin')?.value||'';
   const dia=E.diaS;
   if(!hora||!nombre){notif('Indica hora y nombre','⚠️');return;}
-  if(E.citas.find(c=>c.fecha===dia&&c.hora===hora)){notif('Ese horario ya está ocupado','⚠️');return;}
+  if(E.citas.find(c=>c.fecha===dia&&c.hora===hora)){notif('Ese horario ya está ocupado','');return;}
   if(!cid){let ex=E.clientes.find(c=>c.nombre.toLowerCase()===nombre.toLowerCase());if(ex){cid=ex.id;if(tel&&!ex.telefono)ex.telefono=tel;}else{const nc={id:uid(),nombre,telefono:tel,email:'',notas:'',creadoEn:new Date().toISOString()};E.clientes.push(nc);cid=nc.id;}}
   const barberoId=typeof getBarberoParaCita==='function'?getBarberoParaCita():'b-principal';
   const recurGrupoId=recurDias?uid():null;
@@ -2050,7 +2059,7 @@ function guardarCitaR(){
     }
   }
   guardar();limpF();renderSlots();renderSem();
-  if(citasCreadas>1)notif(`${citasCreadas} citas creadas (recurrente cada ${recurDias} días)`,'🔄');
+  if(citasCreadas>1)notif(`${citasCreadas} citas creadas (recurrente cada ${recurDias} días)`,'');
   else notif(`Cita: ${nombre} a las ${hora}`);
 }
 function limpF(){
@@ -2073,8 +2082,8 @@ function guardarCitaM(){
   const nombre=document.getElementById('mc-n').value.trim();const tel=document.getElementById('mc-t').value.trim();
   const serv=document.getElementById('mc-s').value;const notas=document.getElementById('mc-o').value.trim();
   let cid=document.getElementById('mc-c').value;
-  if(!fecha||!hora||!nombre){notif('Completa fecha, hora y nombre','⚠️');return;}
-  if(E.citas.find(c=>c.fecha===fecha&&c.hora===hora)){notif('Ese horario ya está ocupado','⚠️');return;}
+  if(!fecha||!hora||!nombre){notif('Completa fecha, hora y nombre','');return;}
+  if(E.citas.find(c=>c.fecha===fecha&&c.hora===hora)){notif('Ese horario ya está ocupado','');return;}
   if(!cid){let ex=E.clientes.find(c=>c.nombre.toLowerCase()===nombre.toLowerCase());if(ex){cid=ex.id;}else{const nc={id:uid(),nombre,telefono:tel,email:'',notas:'',creadoEn:new Date().toISOString()};E.clientes.push(nc);cid=nc.id;}}
   E.citas.push({id:uid(),clienteId:cid,fecha,hora,servicio:serv,notas,barberoId:typeof getBarberoParaCitaModal==='function'?getBarberoParaCitaModal():'b-principal'});
   guardar();cm('m-cita');renderSlots();renderSem();notif(`Cita: ${nombre} — ${fecha} ${hora}`);
@@ -2084,7 +2093,7 @@ function delCita(id){
   const cita=E.citas.find(c=>c.id===id);
   const fecha=cita?cita.fecha:null;const hora=cita?cita.hora:null;const srv=cita?cita.servicio:null;
   E.citas=E.citas.filter(c=>c.id!==id);
-  guardar();renderSlots();renderSem();renderMes2();notif('Cita eliminada','🗑');
+  guardar();renderSlots();renderSem();renderMes2();notif('Cita eliminada','');
   if(fecha&&typeof ofrecerListaEspera==='function')ofrecerListaEspera(fecha,hora,srv);
 }
 
@@ -2096,7 +2105,7 @@ function ac(pfx){
   if(!q){lista.style.display='none';return;}
   const m=E.clientes.filter(c=>c.nombre.toLowerCase().includes(q)||c.telefono.includes(q)).slice(0,6);
   if(!m.length){lista.style.display='none';return;}
-  lista.innerHTML=m.map(c=>{const t=tipo(c.id);const tag=t==='habitual'?'<span class="tag tag-h">⭐</span>':t==='ocasional'?'<span class="tag tag-o">💈</span>':'';return`<div class="ac-item" onclick="selAC('${c.id}','${pfx}')"><div><div class="ac-nom">${c.nombre}</div><div class="ac-tel">${c.telefono}</div></div>${tag}</div>`;}).join('');
+  lista.innerHTML=m.map(c=>{const t=tipo(c.id);const tag=t==='habitual'?'<span class="tag tag-h">⭐</span>':t==='ocasional'?'<span class="tag tag-o"></span>':'';return`<div class="ac-item" onclick="selAC('${c.id}','${pfx}')"><div><div class="ac-nom">${c.nombre}</div><div class="ac-tel">${c.telefono}</div></div>${tag}</div>`;}).join('');
   lista.style.display='block';
 }
 function selAC(id,pfx){
@@ -2137,7 +2146,7 @@ function renderMultiTurnos(){
           ${E.cfg.servicios.map(s=>`<option value="${s.nombre}" ${s.nombre===t.servicio?'selected':''}>${s.nombre}</option>`).join('')}
         </select>
       </div>
-      ${E.multiTurnos.length>1?`<button class="btn-icon del" onclick="delMT(${i})">✕</button>`:''}
+      ${E.multiTurnos.length>1?`<button class="btn-icon del" onclick="delMT(${i})"></button>`:''}
     </div>`).join('');
 }
 function updMT(i,k,v){E.multiTurnos[i][k]=v;}
@@ -2146,21 +2155,21 @@ function delMT(i){E.multiTurnos.splice(i,1);renderMultiTurnos();}
 function guardarMultiTurno(){
   const fecha=document.getElementById('mt-f').value;
   const horaIni=document.getElementById('mt-h').value;
-  if(!fecha||!horaIni){notif('Indica fecha y hora de inicio','⚠️');return;}
+  if(!fecha||!horaIni){notif('Indica fecha y hora de inicio','');return;}
   const [hh,mm]=horaIni.split(':').map(Number);let totalMin=hh*60+mm;
   const dur=parseInt(E.cfg.duracion)||30;const des=parseInt(E.cfg.descanso)||0;
   let guardados=0;
   E.multiTurnos.forEach((t,i)=>{
     if(!t.nombre.trim())return;
     const hora=String(Math.floor(totalMin/60)).padStart(2,'0')+':'+String(totalMin%60).padStart(2,'0');
-    if(E.citas.find(c=>c.fecha===fecha&&c.hora===hora)){notif(`Horario ${hora} ya ocupado — turno ${i+1}`, '⚠️');totalMin+=dur+des;return;}
+    if(E.citas.find(c=>c.fecha===fecha&&c.hora===hora)){notif(`Horario ${hora} ya ocupado — turno ${i+1}`, '');totalMin+=dur+des;return;}
     let cid=t.cid;
     if(!cid){let ex=E.clientes.find(c=>c.nombre.toLowerCase()===t.nombre.toLowerCase());if(ex){cid=ex.id;}else{const nc={id:uid(),nombre:t.nombre,telefono:t.tel,email:'',notas:'',creadoEn:new Date().toISOString()};E.clientes.push(nc);cid=nc.id;}}
     E.citas.push({id:uid(),clienteId:cid,fecha,hora,servicio:t.servicio,notas:'Grupo'});
     totalMin+=dur+des;guardados++;
   });
   if(guardados){guardar();cm('m-multi');renderSlots();renderSem();notif(`${guardados} turno${guardados>1?'s':''} agendado${guardados>1?'s':''}`);}
-  else{notif('Añade al menos un cliente','⚠️');}
+  else{notif('Añade al menos un cliente','');}
 }
 
 // ============ CLIENTES ============
@@ -2183,19 +2192,19 @@ function renderCl(){
   const tbody=document.getElementById('tbody-cl');const vac=document.getElementById('cl-vacio');
   if(!cl.length){tbody.innerHTML='';vac.style.display='block';return;}
   vac.style.display='none';
-  const bdg={habitual:'<span class="badge badge-h">⭐ Habitual</span>',ocasional:'<span class="badge badge-o">💈 Ocasional</span>',nuevo:'<span class="badge badge-n">🆕 Nuevo</span>'};
+  const bdg={habitual:'<span class="badge badge-h">⭐ Habitual</span>',ocasional:'<span class="badge badge-o"> Ocasional</span>',nuevo:'<span class="badge badge-n">🆕 Nuevo</span>'};
   tbody.innerHTML=cl.map(c=>{
     const t=tipo(c.id);const v=vis(c.id).length;const u=ultV(c.id);const ds=diasH(c.id);
     return`<tr>
-      <td><div class="cl-nom">${c.nombre}</div>${c.notas?`<div style="font-size:11px;color:var(--texto-dim);margin-top:2px;">📝 ${c.notas}</div>`:''}</td>
-      <td style="color:var(--texto-mid);font-size:12px;"><a href="tel:${(c.telefono||'').replace(/\s/g,'')}" style="color:inherit;text-decoration:none;">📞 ${c.telefono||'—'}</a></td>
+      <td><div class="cl-nom">${c.nombre}</div>${c.notas?`<div style="font-size:11px;color:var(--texto-dim);margin-top:2px;"> ${c.notas}</div>`:''}</td>
+      <td style="color:var(--texto-mid);font-size:12px;"><a href="tel:${(c.telefono||'').replace(/\s/g,'')}" style="color:inherit;text-decoration:none;"> ${c.telefono||'—'}</a></td>
       <td>${bdg[t]||''}</td>
       <td class="cl-vis">${v}</td>
       <td>${ds.length?ds.map(d=>`<span class="dia-chip">${d}</span>`).join(' '):'<span style="color:var(--texto-dim);font-size:11px;">—</span>'}</td>
       <td style="color:var(--texto-mid);font-size:12px;">${u?fmtF(u):'—'}</td>
       <td><div style="display:flex;gap:4px;">
-        <button class="btn-icon" onclick="verDet('${c.id}')">👁</button>
-        <button class="btn-icon del" onclick="delCliente('${c.id}')">✕</button>
+        <button class="btn-icon" onclick="verDet('${c.id}')"></button>
+        <button class="btn-icon del" onclick="delCliente('${c.id}')"></button>
       </div></td>
     </tr>`;
   }).join('');
@@ -2204,15 +2213,15 @@ function abrirModalNC(){['nc-n','nc-t','nc-e','nc-o'].forEach(id=>document.getEl
 function guardarNC(){
   const nom=document.getElementById('nc-n').value.trim();const tel=document.getElementById('nc-t').value.trim();
   const email=document.getElementById('nc-e').value.trim();const notas=document.getElementById('nc-o').value.trim();
-  if(!nom){notif('Nombre obligatorio','⚠️');return;}
-  if(E.clientes.find(c=>c.nombre.toLowerCase()===nom.toLowerCase())){notif('Ya existe ese cliente','⚠️');return;}
+  if(!nom){notif('Nombre obligatorio','');return;}
+  if(E.clientes.find(c=>c.nombre.toLowerCase()===nom.toLowerCase())){notif('Ya existe ese cliente','');return;}
   E.clientes.push({id:uid(),nombre:nom,telefono:tel,email,notas,creadoEn:new Date().toISOString()});
-  guardar();cm('m-nc');renderCl();notif(`"${nom}" añadido`,'👤');
+  guardar();cm('m-nc');renderCl();notif(`"${nom}" añadido`,'');
 }
 function delCliente(id){
   const cl=getC(id);if(!cl)return;if(!confirm(`¿Eliminar a "${cl.nombre}" y todas sus citas?`))return;
   E.clientes=E.clientes.filter(c=>c.id!==id);E.citas=E.citas.filter(c=>c.clienteId!==id);
-  guardar();renderCl();notif(`"${cl.nombre}" eliminado`,'🗑');
+  guardar();renderCl();notif(`"${cl.nombre}" eliminado`,'');
 }
 
 // ============ HABITUALES ============
@@ -2229,13 +2238,13 @@ function renderHab(){
     const vs=vis(c.id);const ds=diasH(c.id);const u=ultV(c.id);const sf=srvFav(c.id);
     const diasH2=DIAS_C.map(d=>`<div class="hdc ${ds.includes(d)?'si':'no'}">${d.slice(0,2)}</div>`).join('');
     return`<div class="hab-card" onclick="verDet('${c.id}')">
-      <div class="hab-top"><div><div class="hab-nom">${c.nombre}</div><div class="hab-tel">📞 ${c.telefono||'—'}</div></div><div class="hab-vis">${vs.length}<div class="hab-vis-s">visitas</div></div></div>
+      <div class="hab-top"><div><div class="hab-nom">${c.nombre}</div><div class="hab-tel"> ${c.telefono||'—'}</div></div><div class="hab-vis">${vs.length}<div class="hab-vis-s">visitas</div></div></div>
       <div class="hab-dias">${diasH2}</div>
       <div class="hab-inf">
         <div class="hib"><div class="hib-l">Serv. fav.</div><div class="hib-v">${sf}</div></div>
         <div class="hib"><div class="hib-l">Última visita</div><div class="hib-v">${u?fmtF(u):'—'}</div></div>
       </div>
-      ${c.notas?`<div style="margin-top:9px;font-size:11px;color:var(--texto-dim);background:var(--surface2);padding:7px;border-radius:6px;">📝 ${c.notas}</div>`:''}
+      ${c.notas?`<div style="margin-top:9px;font-size:11px;color:var(--texto-dim);background:var(--surface2);padding:7px;border-radius:6px;"> ${c.notas}</div>`:''}
     </div>`;
   }).join('');
 }
@@ -2261,17 +2270,17 @@ function renderDetCliente(){
   const id=detClienteId;
   const cl=getC(id);if(!cl)return;
   const t=tipo(id);const vs=vis(id);const ds=diasH(id);const u=ultV(id);
-  const bdg={habitual:'<span class="badge badge-h" style="margin-left:8px;">⭐ Habitual</span>',ocasional:'<span class="badge badge-o" style="margin-left:8px;">💈 Ocasional</span>',nuevo:'<span class="badge badge-n" style="margin-left:8px;">🆕 Nuevo</span>'};
+  const bdg={habitual:'<span class="badge badge-h" style="margin-left:8px;">⭐ Habitual</span>',ocasional:'<span class="badge badge-o" style="margin-left:8px;"> Ocasional</span>',nuevo:'<span class="badge badge-n" style="margin-left:8px;">🆕 Nuevo</span>'};
   const hist=[...vs].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,12);
   const btnEdit=document.getElementById('btn-edit-cl');
 
   if(!detEditando){
     // ---- MODO VISUALIZACIÓN ----
     document.getElementById('det-tit').innerHTML=cl.nombre+(bdg[t]||'');
-    if(btnEdit){btnEdit.textContent='✏️';btnEdit.title='Editar datos';}
+    if(btnEdit){btnEdit.textContent='';btnEdit.title='Editar datos';}
     document.getElementById('det-body').innerHTML=`
       <div class="det-grid">
-        <div class="det-f"><div class="df-l">Teléfono</div><div class="df-v"><a href="tel:${(cl.telefono||'').replace(/\s/g,'')}" style="color:var(--plata);text-decoration:none;">📞 ${cl.telefono||'—'}</a></div></div>
+        <div class="det-f"><div class="df-l">Teléfono</div><div class="df-v"><a href="tel:${(cl.telefono||'').replace(/\s/g,'')}" style="color:var(--plata);text-decoration:none;"> ${cl.telefono||'—'}</a></div></div>
         <div class="det-f"><div class="df-l">Visitas totales</div><div class="df-v" style="font-family:'Bebas Neue',cursive;font-size:24px;color:var(--plata);">${vs.length}</div></div>
         <div class="det-f"><div class="df-l">Última visita</div><div class="df-v">${u?fmtF(u):'—'}</div></div>
         <div class="det-f"><div class="df-l">Servicio favorito</div><div class="df-v" style="font-size:12px;">${srvFav(id)}</div></div>
@@ -2280,12 +2289,12 @@ function renderDetCliente(){
       ${cl.notas?`<div class="det-f" style="margin-bottom:11px;"><div class="df-l">Notas</div><div class="df-v" style="font-size:13px;">${cl.notas}</div></div>`:''}
       ${ds.length?`<div style="margin-bottom:12px;"><div class="df-l" style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--texto-dim);margin-bottom:6px;font-weight:700;">Días habituales</div><div style="display:flex;gap:4px;">${ds.map(d=>`<span class="dia-chip">${d}</span>`).join('')}</div></div>`:''}
       <div class="df-l" style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--texto-dim);margin-bottom:7px;font-weight:700;">Historial de citas</div>
-      ${hist.length?hist.map(c=>`<div class="hist-item"><span class="hi-f">${fmtF(c.fecha)}</span><span class="hi-h">${c.hora}</span><span class="hi-s">${c.servicio}</span>${c.notas?`<span style="font-size:10px;color:var(--texto-dim);margin-left:auto;">📝 ${c.notas}</span>`:''}</div>`).join(''):'<div class="empty" style="padding:12px 0;">Sin historial</div>'}
+      ${hist.length?hist.map(c=>`<div class="hist-item"><span class="hi-f">${fmtF(c.fecha)}</span><span class="hi-h">${c.hora}</span><span class="hi-s">${c.servicio}</span>${c.notas?`<span style="font-size:10px;color:var(--texto-dim);margin-left:auto;"> ${c.notas}</span>`:''}</div>`).join(''):'<div class="empty" style="padding:12px 0;">Sin historial</div>'}
     `;
   }else{
     // ---- MODO EDICIÓN ----
     document.getElementById('det-tit').textContent='Editando: '+cl.nombre;
-    if(btnEdit){btnEdit.textContent='👁';btnEdit.title='Ver detalle';}
+    if(btnEdit){btnEdit.textContent='';btnEdit.title='Ver detalle';}
     document.getElementById('det-body').innerHTML=`
       <div class="fg"><label>Nombre completo</label><input type="text" id="ed-nombre" value="${(cl.nombre||'').replace(/"/g,'&quot;')}"></div>
       <div class="cols2">
@@ -2294,7 +2303,7 @@ function renderDetCliente(){
       </div>
       <div class="fg"><label>Notas / Preferencias</label><input type="text" id="ed-notas" value="${(cl.notas||'').replace(/"/g,'&quot;')}" placeholder="Preferencias, alergias…"></div>
       <div style="display:flex;gap:8px;margin-top:6px;">
-        <button class="btn-p" onclick="guardarEdicionCliente()">💾 Guardar cambios</button>
+        <button class="btn-p" onclick="guardarEdicionCliente()"> Guardar cambios</button>
         <button class="btn-s" onclick="toggleEditCliente()">Cancelar</button>
       </div>
       <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--borde);">
@@ -2309,10 +2318,10 @@ function guardarEdicionCliente(){
   const id=detClienteId;
   const cl=getC(id);if(!cl)return;
   const nombre=document.getElementById('ed-nombre').value.trim();
-  if(!nombre){notif('El nombre no puede estar vacío','⚠️');return;}
+  if(!nombre){notif('El nombre no puede estar vacío','');return;}
   // Comprobar duplicado de nombre (excluyendo el propio)
   const dup=E.clientes.find(c=>c.id!==id&&c.nombre.toLowerCase()===nombre.toLowerCase());
-  if(dup){notif('Ya existe otro cliente con ese nombre','⚠️');return;}
+  if(dup){notif('Ya existe otro cliente con ese nombre','');return;}
 
   cl.nombre=nombre;
   cl.telefono=document.getElementById('ed-tel').value.trim();
@@ -2327,7 +2336,7 @@ function guardarEdicionCliente(){
   renderHab();
   if(document.getElementById('sec-agenda').classList.contains('activa')){renderSlots();renderSem();}
   if(document.getElementById('sec-dashboard').classList.contains('activa')){renderDash();}
-  notif(`"${nombre}" actualizado`,'✅');
+  notif(`"${nombre}" actualizado`,'');
 }
 
 
@@ -2347,10 +2356,10 @@ function renderTPV(){
     grid.innerHTML='<div style="color:var(--texto-dim);font-size:12px;padding:8px 0;">Sin servicios configurados. Ve a Configuración → Servicios.</div>';
     return;
   }
-  const icos={'Corte':'✂️','Barba':'🪒','Corte + Barba':'💈','Tinte':'🎨','Decoloración':'⚗️','Alisado':'💆','Masaje':'💆‍♂️','Afeitado':'🪒','Niño':'👦','Mujer':'💇‍♀️'};
+  const icos={'Corte':'✂️','Barba':'🪒','Corte + Barba':'💈','Tinte':'🎨','Decoloración':'⚗️','Alisado':'💆','Masaje':'💆‍','Afeitado':'🪒','Niño':'','Mujer':'‍'};
   function getIco(nombre){
     for(const[k,v] of Object.entries(icos)){if(nombre.toLowerCase().includes(k.toLowerCase()))return v;}
-    return '💈';
+    return '';
   }
   grid.innerHTML=servs.map(s=>`
     <button class="tpv-btn" id="tpv-b-${s.id}" onclick="selTPV('${s.id}')">
@@ -2380,11 +2389,11 @@ function cancelarTPV(){
 function confirmarTPVCobro(metodo){
   if(!_tpvServSel)return;
   const precioInput=parseFloat(document.getElementById('tpv-precio-edit').value||_tpvServSel.precio)||0;
-  const icos={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+  const icos={efectivo:'',tarjeta:'',bizum:''};
   const mov={id:uid(),tipo:'ingreso',descripcion:_tpvServSel.nombre,importe:precioInput,metodo,fecha:getFinDia(),ts:Date.now()};
   E.movimientos.push(mov);
   guardar();
-  notif(`${icos[metodo]} ${_tpvServSel.nombre}: ${precioInput.toFixed(2)}€`,'✅');
+  notif(`${icos[metodo]} ${_tpvServSel.nombre}: ${precioInput.toFixed(2)}€`,'');
   cancelarTPV();
   renderFin();
 }
@@ -2431,13 +2440,13 @@ function renderFin(){
   if(!movs.length){lista.innerHTML='';vac.style.display='block';}
   else{
     vac.style.display='none';
-    const ico={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+    const ico={efectivo:'',tarjeta:'',bizum:''};
     lista.innerHTML=[...movs].sort((a,b)=>b.id.localeCompare(a.id)).map(m=>`
       <div class="ing-row">
-        <div style="font-size:18px;">${ico[m.metodo]||'💰'}</div>
+        <div style="font-size:18px;">${ico[m.metodo]||''}</div>
         <div style="flex:1;"><div class="ing-desc">${m.desc}</div><div class="ing-meta">${m.metodo.charAt(0).toUpperCase()+m.metodo.slice(1)} · ${m.tipo==='ingreso'?'Ingreso':'Gasto'}</div></div>
         <span class="ing-imp ${m.tipo==='gasto'?'gas':''}">${m.tipo==='gasto'?'-':'+'}${m.importe.toFixed(2)}€</span>
-        <button class="btn-icon del" onclick="delMov('${m.id}')">✕</button>
+        <button class="btn-icon del" onclick="delMov('${m.id}')"></button>
       </div>`).join('');
   }
   // Resumen mensual y cierre de caja
@@ -2494,7 +2503,7 @@ function renderMesFin(diaActual){
     if(sel)sel.scrollIntoView({block:'nearest',behavior:'smooth'});
   },50);
 }
-function delMov(id){if(!confirm('¿Eliminar movimiento?'))return;E.movimientos=E.movimientos.filter(m=>m.id!==id);guardar();renderFin();renderSlots();notif('Eliminado','🗑');}
+function delMov(id){if(!confirm('¿Eliminar movimiento?'))return;E.movimientos=E.movimientos.filter(m=>m.id!==id);guardar();renderFin();renderSlots();notif('Eliminado','');}
 
 // ============ CONFIGURACIÓN ============
 function renderCfg(){
@@ -2552,23 +2561,23 @@ function guardarCfg(){
 function addExcepcion(){
   const fecha=document.getElementById('exc-fecha').value;const ini=document.getElementById('exc-ini').value;
   const fin=document.getElementById('exc-fin').value;const mot=document.getElementById('exc-mot').value.trim();
-  if(!fecha||!ini||!fin){notif('Indica fecha, hora inicio y fin','⚠️');return;}
+  if(!fecha||!ini||!fin){notif('Indica fecha, hora inicio y fin','');return;}
   E.cfg.excepciones=E.cfg.excepciones.filter(e=>e.fecha!==fecha);
   E.cfg.excepciones.push({fecha,ini,fin,motivo:mot});
   guardar();renderExcLista();['exc-fecha','exc-ini','exc-fin','exc-mot'].forEach(id=>document.getElementById(id).value='');
-  notif('Excepción añadida','⚡');
+  notif('Excepción añadida','');
 }
 function renderExcLista(){
   const lista=document.getElementById('lista-exc');
   if(!E.cfg.excepciones.length){lista.innerHTML='<div style="font-size:12px;color:var(--texto-dim);">Sin excepciones configuradas</div>';return;}
   lista.innerHTML=E.cfg.excepciones.sort((a,b)=>a.fecha.localeCompare(b.fecha)).map(e=>`
     <div class="ing-row" style="padding:8px 12px;">
-      <span class="exc-badge">⚡ ${fmtF(e.fecha)}</span>
-      <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${e.ini} — ${e.fin}</div>${e.motivo?`<div style="font-size:11px;color:var(--texto-dim);">📝 ${e.motivo}</div>`:''}</div>
-      <button class="btn-icon del" onclick="delExc('${e.fecha}')">✕</button>
+      <span class="exc-badge"> ${fmtF(e.fecha)}</span>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${e.ini} — ${e.fin}</div>${e.motivo?`<div style="font-size:11px;color:var(--texto-dim);"> ${e.motivo}</div>`:''}</div>
+      <button class="btn-icon del" onclick="delExc('${e.fecha}')"></button>
     </div>`).join('');
 }
-function delExc(f){E.cfg.excepciones=E.cfg.excepciones.filter(e=>e.fecha!==f);guardar();renderExcLista();notif('Excepción eliminada','🗑');}
+function delExc(f){E.cfg.excepciones=E.cfg.excepciones.filter(e=>e.fecha!==f);guardar();renderExcLista();notif('Excepción eliminada','');}
 function renderSrvLista(){
   const lista=document.getElementById('lista-srv');
   lista.innerHTML=E.cfg.servicios.map(s=>{
@@ -2577,14 +2586,14 @@ function renderSrvLista(){
       <input type="text" value="${(s.nombre||'').replace(/"/g,'&quot;')}" onchange="renombrarSrv('${s.id}',this.value)"
         style="background:transparent;border:none;border-bottom:1px dashed transparent;color:var(--texto);font-size:13px;font-weight:500;outline:none;flex:1;padding:4px 2px;"
         onfocus="this.style.borderBottomColor='var(--plata-oscuro)'" onblur="this.style.borderBottomColor='transparent'">
-      ${hist.length?`<button class="btn-icon" onclick="verHistorialSrv('${s.id}')" title="Ver historial de precios">📜</button>`:''}
+      ${hist.length?`<button class="btn-icon" onclick="verHistorialSrv('${s.id}')" title="Ver historial de precios"></button>`:''}
       <div style="display:flex;align-items:center;gap:4px;">
         <input type="number" value="${s.precio||0}" min="0" step="0.5" onchange="cambiarPrecioSrv('${s.id}',this.value)"
           style="background:var(--input-bg);border:1px solid var(--borde);color:var(--plata);font-family:'Bebas Neue',cursive;font-size:16px;outline:none;width:62px;text-align:right;padding:4px 6px;border-radius:5px;"
           onfocus="this.style.borderColor='var(--plata-oscuro)'" onblur="this.style.borderColor='var(--borde)'">
         <span style="font-size:11px;color:var(--texto-dim);">€</span>
       </div>
-      <button class="btn-icon del" onclick="delSrv('${s.id}')" title="Eliminar servicio">✕</button>
+      <button class="btn-icon del" onclick="delSrv('${s.id}')" title="Eliminar servicio"></button>
     </div>`;
   }).join('');
 }
@@ -2622,7 +2631,7 @@ function cambiarPrecioSrv(id,nuevoPrecio){
   s.precio=precio;
   s.vigenteDesde=fStr(new Date());
   guardar();renderSrvLista();if(typeof renderTPV==="function")renderTPV();fillSrvSelect('f-s');
-  notif(`"${s.nombre}" actualizado a ${precio.toFixed(2)}€ — vigente desde ${mesEs(fStr(new Date()))}`,'💶');
+  notif(`"${s.nombre}" actualizado a ${precio.toFixed(2)}€ — vigente desde ${mesEs(fStr(new Date()))}`,'');
 }
 function mesEs(fechaStr){
   if(!fechaStr)return'—';
@@ -2631,19 +2640,19 @@ function mesEs(fechaStr){
 }
 function addSrv(){
   const n=document.getElementById('srv-n').value.trim();const p=parseFloat(document.getElementById('srv-p').value)||0;
-  if(!n){notif('Nombre del servicio requerido','⚠️');return;}
+  if(!n){notif('Nombre del servicio requerido','');return;}
   E.cfg.servicios.push({id:uid(),nombre:n,precio:p});
   guardar();renderSrvLista();if(typeof renderTPV==="function")renderTPV();fillSrvSelect('f-s');
   document.getElementById('srv-n').value='';document.getElementById('srv-p').value='';
-  notif(`Servicio "${n}" añadido`,'✂');
+  notif(`Servicio "${n}" añadido`,'');
 }
-function delSrv(id){E.cfg.servicios=E.cfg.servicios.filter(s=>s.id!==id);guardar();renderSrvLista();if(typeof renderTPV==="function")renderTPV();fillSrvSelect('f-s');notif('Servicio eliminado','🗑');}
+function delSrv(id){E.cfg.servicios=E.cfg.servicios.filter(s=>s.id!==id);guardar();renderSrvLista();if(typeof renderTPV==="function")renderTPV();fillSrvSelect('f-s');notif('Servicio eliminado','');}
 function guardarPerfil(){
   E.cfg.nombre=document.getElementById('cfg-nbiz').value.trim()||'BarberOS';
   E.cfg.ciudad=document.getElementById('cfg-ciudad').value.trim();
   E.cfg.tel=document.getElementById('cfg-tel').value.trim();
   E.cfg.umbral=parseInt(document.getElementById('cfg-umbral').value)||4;
-  guardar();actuSidebar();notif('Perfil guardado','🏪');
+  guardar();actuSidebar();notif('Perfil guardado','');
 }
 function actuSidebar(){
   document.getElementById('sb-nombre').textContent=E.cfg.nombre||'BarberOS';
@@ -2668,14 +2677,14 @@ function actualizarPreviewPerfil(){
 function cargarLogo(input){
   const f=input.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=e=>{E.cfg.logo=e.target.result;actualizarPreviewPerfil();actuSidebar();notif('Logo cargado — guarda para confirmar','📷');};
+  r.onload=e=>{E.cfg.logo=e.target.result;actualizarPreviewPerfil();actuSidebar();notif('Logo cargado — guarda para confirmar','');};
   r.readAsDataURL(f);
 }
 function guardarPerfilModal(){
   E.cfg.nombre=document.getElementById('p-nom').value.trim()||'BarberOS';
   E.cfg.ciudad=document.getElementById('p-ciu').value.trim();
   E.cfg.tel=document.getElementById('p-tel').value.trim();
-  guardar();actuSidebar();cm('m-perfil');notif('Perfil guardado','🏪');
+  guardar();actuSidebar();cm('m-perfil');notif('Perfil guardado','');
 }
 
 // ============ EXPORTAR EXCEL (CSV) ============
@@ -2707,7 +2716,7 @@ function descargarCSV(filas,nombre){
 // ============ WHATSAPP RECORDATORIO ============
 function enviarWA(clienteId, fecha, hora, servicio){
   const cl=getC(clienteId);
-  if(!cl||!cl.telefono){notif('Este cliente no tiene teléfono guardado','⚠️');return;}
+  if(!cl||!cl.telefono){notif('Este cliente no tiene teléfono guardado','');return;}
   const tel=cl.telefono.replace(/\s/g,'').replace(/^0/,'').replace(/^\+/,'');
   const telWA=tel.startsWith('34')?tel:'34'+tel;
   const d=new Date(fecha+'T00:00:00');
@@ -2770,7 +2779,7 @@ function getRangoPrevio(rango){
 
 function renderStats(){
   const rango=getRangoStats();
-  if(!rango){notif('Selecciona rango de fechas','⚠️');return;}
+  if(!rango){notif('Selecciona rango de fechas','');return;}
   document.getElementById('st-periodo-lbl').textContent=rango.label;
 
   const citasR=E.citas.filter(c=>c.fecha>=rango.desde&&c.fecha<=rango.hasta);
@@ -2811,7 +2820,7 @@ function renderStats(){
   const metodos={efectivo:0,tarjeta:0,bizum:0};
   movsR.forEach(m=>{if(metodos[m.metodo]!==undefined)metodos[m.metodo]+=m.importe;});
   const maxMet=Math.max(...Object.values(metodos),1);
-  const icoM={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+  const icoM={efectivo:'',tarjeta:'',bizum:''};
   document.getElementById('st-metodos').innerHTML=Object.entries(metodos).map(([k,v])=>`
     <div>
       <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
@@ -2827,7 +2836,7 @@ function renderStats(){
   document.getElementById('st-top-cl').innerHTML=topCl.length?topCl.map(([id,n],i)=>{
     const cl=getC(id);
     return`<div class="ranking-item"><span class="rank-pos">${i+1}</span><div><div class="rank-nom">${cl?cl.nombre:'—'}</div><div class="rank-sub">${cl?cl.telefono:''}</div></div><div><div class="rank-val">${n}</div><div class="rank-sub">citas</div></div></div>`;
-  }).join(''):'<div class="empty" style="padding:16px 0;"><div class="empty-ico">👤</div>Sin datos</div>';
+  }).join(''):'<div class="empty" style="padding:16px 0;"><div class="empty-ico"></div>Sin datos</div>';
 
   // Top servicios
   const ctSrv={};citasR.forEach(c=>{ctSrv[c.servicio]=(ctSrv[c.servicio]||0)+1;});
@@ -2838,7 +2847,7 @@ function renderStats(){
       <span class="srv-bar-nom">${srv}</span>
       <div class="srv-bar-track"><div class="srv-bar-fill" style="width:${Math.round(n/maxSrv*100)}%"></div></div>
       <span class="srv-bar-n">${n}</span>
-    </div>`).join(''):'<div class="empty" style="padding:16px 0;"><div class="empty-ico">✂</div>Sin datos</div>';
+    </div>`).join(''):'<div class="empty" style="padding:16px 0;"><div class="empty-ico"></div>Sin datos</div>';
 
   // Días semana
   const ctD=[0,0,0,0,0,0];
@@ -2986,7 +2995,7 @@ function exportarBackup(){
   a.href=url;
   a.download=`barberos_backup_${fStr(new Date())}.json`;
   a.click();URL.revokeObjectURL(url);
-  notif('Backup descargado','💾');
+  notif('Backup descargado','');
 }
 
 function importarBackup(input){
@@ -2995,15 +3004,15 @@ function importarBackup(input){
   r.onload=e=>{
     try{
       const data=JSON.parse(e.target.result);
-      if(!data.clientes||!data.citas){notif('Archivo de backup no válido','⚠️');return;}
-      if(!confirm(`¿Restaurar backup del ${data.exportadoEn?new Date(data.exportadoEn).toLocaleDateString('es-ES'):'archivo'}?\n\n⚠️ Esto REEMPLAZARÁ todos tus datos actuales.`))return;
+      if(!data.clientes||!data.citas){notif('Archivo de backup no válido','');return;}
+      if(!confirm(`¿Restaurar backup del ${data.exportadoEn?new Date(data.exportadoEn).toLocaleDateString('es-ES'):'archivo'}?\n\n Esto REEMPLAZARÁ todos tus datos actuales.`))return;
       E.clientes=data.clientes||[];
       E.citas=data.citas||[];
       E.movimientos=data.movimientos||[];
       if(data.cfg)E.cfg=Object.assign({},E.cfg,data.cfg);
       guardar();actuSidebar();renderDash();
-      notif(`Backup restaurado — ${E.clientes.length} clientes, ${E.citas.length} citas`,'✅');
-    }catch(err){notif('Error al leer el archivo','⚠️');}
+      notif(`Backup restaurado — ${E.clientes.length} clientes, ${E.citas.length} citas`,'');
+    }catch(err){notif('Error al leer el archivo','');}
   };
   r.readAsText(f);
   input.value='';
@@ -3075,7 +3084,7 @@ function renderCatalogo(){
       <td style="padding:11px 13px;border-bottom:1px solid var(--borde);">
         <div style="font-weight:600;font-size:13px;">${p.nombre}</div>
         ${p.referencia?`<div style="font-size:11px;color:var(--texto-dim);">Ref: ${p.referencia}</div>`:''}
-        ${p.notas?`<div style="font-size:11px;color:var(--texto-dim);">📝 ${p.notas}</div>`:''}
+        ${p.notas?`<div style="font-size:11px;color:var(--texto-dim);"> ${p.notas}</div>`:''}
       </td>
       <td style="padding:11px 13px;border-bottom:1px solid var(--borde);font-size:12px;"><span class="prv-badge">${p.categoria||'—'}</span></td>
       <td style="padding:11px 13px;border-bottom:1px solid var(--borde);font-size:12px;">${pv?`<span class="prv-badge">${pv.nombre}</span>`:'<span style="color:var(--texto-dim);">—</span>'}</td>
@@ -3084,8 +3093,8 @@ function renderCatalogo(){
       <td style="padding:11px 13px;border-bottom:1px solid var(--borde);font-size:12px;color:var(--texto-dim);">${p.stockMin||0}</td>
       <td style="padding:11px 13px;border-bottom:1px solid var(--borde);">
         <div style="display:flex;gap:4px;">
-          <button class="btn-icon grn" onclick="event.stopPropagation();abrirAddPed('${p.id}')" title="Añadir al pedido">🛒</button>
-          <button class="btn-icon del" onclick="event.stopPropagation();eliminarProd('${p.id}')" title="Eliminar">✕</button>
+          <button class="btn-icon grn" onclick="event.stopPropagation();abrirAddPed('${p.id}')" title="Añadir al pedido"></button>
+          <button class="btn-icon del" onclick="event.stopPropagation();eliminarProd('${p.id}')" title="Eliminar"></button>
         </div>
       </td>
     </tr>`;
@@ -3116,7 +3125,7 @@ function abrirModalProd(id){
 
 function guardarProd(){
   const nom=document.getElementById('prod-nom').value.trim();
-  if(!nom){notif('El nombre es obligatorio','⚠️');return;}
+  if(!nom){notif('El nombre es obligatorio','');return;}
   if(!E.cfg.catalogo)E.cfg.catalogo=[];
   let id=document.getElementById('prod-id').value;
   const datos={
@@ -3139,7 +3148,7 @@ function guardarProd(){
     id=uid();E.cfg.catalogo.push({id,...datos});
   }
   guardar();cm('m-prod');renderCatalogo();poblarFiltrosCat();
-  notif(datos.nombre+' guardado','📦');
+  notif(datos.nombre+' guardado','');
 }
 
 function eliminarProd(id){
@@ -3148,7 +3157,7 @@ function eliminarProd(id){
   E.cfg.catalogo=getCatalogo().filter(x=>x.id!==id);
   // Quitar del pedido actual
   pedidoActual=pedidoActual.filter(l=>l.prodId!==id);
-  guardar();renderCatalogo();renderPedidoActual();notif('Producto eliminado','🗑');
+  guardar();renderCatalogo();renderPedidoActual();notif('Producto eliminado','');
 }
 
 function eliminarProdActual(){
@@ -3178,7 +3187,7 @@ function renderProveedores(){
       <div class="hab-top">
         <div>
           <div class="hab-nom">${pv.nombre}</div>
-          ${pv.contacto?`<div class="hab-tel">👤 ${pv.contacto}</div>`:''}
+          ${pv.contacto?`<div class="hab-tel"> ${pv.contacto}</div>`:''}
         </div>
         <div style="text-align:right;">
           <div style="font-family:'Bebas Neue',cursive;font-size:22px;color:var(--plata);">${nProds}</div>
@@ -3186,15 +3195,15 @@ function renderProveedores(){
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:10px;font-size:12px;color:var(--texto-mid);">
-        ${pv.tel?`<div>📞 <a href="tel:${pv.tel.replace(/\s/g,'')}" style="color:inherit;text-decoration:none;">${pv.tel}</a></div>`:''}
-        ${pv.email?`<div>✉️ <a href="mailto:${pv.email}" style="color:inherit;text-decoration:none;">${pv.email}</a></div>`:''}
-        ${pv.web?`<div>🌐 <a href="${pv.web}" target="_blank" style="color:var(--azul);text-decoration:none;">${pv.web.replace('https://','')}</a></div>`:''}
-        ${pv.entrega?`<div>🚚 ${pv.entrega}</div>`:''}
+        ${pv.tel?`<div> <a href="tel:${pv.tel.replace(/\s/g,'')}" style="color:inherit;text-decoration:none;">${pv.tel}</a></div>`:''}
+        ${pv.email?`<div> <a href="mailto:${pv.email}" style="color:inherit;text-decoration:none;">${pv.email}</a></div>`:''}
+        ${pv.web?`<div> <a href="${pv.web}" target="_blank" style="color:var(--azul);text-decoration:none;">${pv.web.replace('https://','')}</a></div>`:''}
+        ${pv.entrega?`<div> ${pv.entrega}</div>`:''}
       </div>
-      ${pv.notas?`<div style="font-size:11px;color:var(--texto-dim);background:var(--surface2);padding:7px;border-radius:6px;margin-bottom:10px;">📝 ${pv.notas}</div>`:''}
+      ${pv.notas?`<div style="font-size:11px;color:var(--texto-dim);background:var(--surface2);padding:7px;border-radius:6px;margin-bottom:10px;"> ${pv.notas}</div>`:''}
       <div style="display:flex;gap:6px;">
-        <button class="btn-s" style="flex:1;" onclick="abrirModalProv('${pv.id}')">✏️ Editar</button>
-        <button class="btn-icon del" onclick="eliminarProv('${pv.id}')">✕</button>
+        <button class="btn-s" style="flex:1;" onclick="abrirModalProv('${pv.id}')"> Editar</button>
+        <button class="btn-icon del" onclick="eliminarProv('${pv.id}')"></button>
       </div>
     </div>`;
   }).join('');
@@ -3217,7 +3226,7 @@ function abrirModalProv(id){
 
 function guardarProv(){
   const nom=document.getElementById('prov-nom').value.trim();
-  if(!nom){notif('El nombre es obligatorio','⚠️');return;}
+  if(!nom){notif('El nombre es obligatorio','');return;}
   if(!E.cfg.proveedores)E.cfg.proveedores=[];
   let id=document.getElementById('prov-id').value;
   const datos={nombre:nom,contacto:document.getElementById('prov-contacto').value.trim(),tel:document.getElementById('prov-tel').value.trim(),email:document.getElementById('prov-email').value.trim(),web:document.getElementById('prov-web').value.trim(),entrega:document.getElementById('prov-entrega').value.trim(),notas:document.getElementById('prov-notas').value.trim()};
@@ -3227,7 +3236,7 @@ function guardarProv(){
   // Actualizar selects de productos
   const sel=document.getElementById('prod-prv');
   if(sel)sel.innerHTML='<option value="">Sin proveedor</option>'+getProveedores().map(pv=>`<option value="${pv.id}">${pv.nombre}</option>`).join('');
-  notif(nom+' guardado','🏭');
+  notif(nom+' guardado','');
 }
 
 function eliminarProv(id){
@@ -3235,7 +3244,7 @@ function eliminarProv(id){
   const nProds=getCatalogo().filter(p=>p.proveedorId===id).length;
   if(nProds&&!confirm(`"${pv.nombre}" tiene ${nProds} productos asociados. ¿Eliminar igualmente?`))return;
   E.cfg.proveedores=getProveedores().filter(p=>p.id!==id);
-  guardar();renderProveedores();notif('Proveedor eliminado','🗑');
+  guardar();renderProveedores();notif('Proveedor eliminado','');
 }
 
 function eliminarProvActual(){
@@ -3248,7 +3257,7 @@ function renderCatBusq(q){
   const cont=document.getElementById('ped-busq-res');
   if(!q.trim()){cont.innerHTML='';return;}
   let prods=getCatalogo().filter(p=>p.nombre.toLowerCase().includes(q.toLowerCase())||(p.categoria||'').toLowerCase().includes(q.toLowerCase()));
-  if(!prods.length){cont.innerHTML='<div class="empty" style="padding:14px 0;"><div class="empty-ico">📦</div>Sin resultados</div>';return;}
+  if(!prods.length){cont.innerHTML='<div class="empty" style="padding:14px 0;"><div class="empty-ico"></div>Sin resultados</div>';return;}
   cont.innerHTML=prods.slice(0,8).map(p=>{
     const pv=getProv(p.proveedorId);
     const enPed=pedidoActual.find(l=>l.prodId===p.id);
@@ -3257,13 +3266,13 @@ function renderCatBusq(q){
         <div class="cat-nom">${p.nombre}</div>
         <div class="cat-det">
           ${p.categoria?`<span class="prv-badge">${p.categoria}</span>`:''}
-          ${pv?`<span class="prv-badge">🏭 ${pv.nombre}</span>`:''}
+          ${pv?`<span class="prv-badge"> ${pv.nombre}</span>`:''}
           <span>Stock: <strong>${p.stock||0}</strong></span>
         </div>
       </div>
       <div style="text-align:right;flex-shrink:0;">
         ${p.precio?`<div class="cat-precio">${p.precio.toFixed(2)}<span class="cat-und"> €/${p.unidad||'ud'}</span></div>`:''}
-        ${enPed?`<div style="font-size:11px;color:var(--verde);margin-top:3px;">✓ En pedido (×${enPed.qty})</div>`:''}
+        ${enPed?`<div style="font-size:11px;color:var(--verde);margin-top:3px;"> En pedido (×${enPed.qty})</div>`:''}
       </div>
       <button class="btn-p sm" onclick="abrirAddPed('${p.id}')" style="flex-shrink:0;">+ Añadir</button>
     </div>`;
@@ -3285,7 +3294,7 @@ function abrirAddPed(prodId){
     <div style="font-weight:600;font-size:14px;margin-bottom:6px;">${p.nombre}</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--texto-dim);">
       ${p.categoria?`<span class="prv-badge">${p.categoria}</span>`:''}
-      ${pv?`<span class="prv-badge">🏭 ${pv.nombre}</span>`:''}
+      ${pv?`<span class="prv-badge"> ${pv.nombre}</span>`:''}
       ${p.referencia?`<span>Ref: ${p.referencia}</span>`:''}
     </div>
     <div style="display:flex;gap:16px;margin-top:8px;font-size:12px;">
@@ -3321,7 +3330,7 @@ function confirmarAddPed(){
   else pedidoActual.push({prodId,qty});
   cm('m-addped');renderPedidoActual();
   const p=getProd(prodId);
-  notif(`${p?p.nombre:'Producto'} añadido al pedido (×${qty})`,'🛒');
+  notif(`${p?p.nombre:'Producto'} añadido al pedido (×${qty})`,'');
 }
 
 function renderPedidoActual(){
@@ -3339,7 +3348,7 @@ function renderPedidoActual(){
     return`<div class="ped-linea">
       <div class="ped-linea-info">
         <div class="ped-linea-nom">${p.nombre}</div>
-        <div class="ped-linea-det">${p.categoria?`<span class="prv-badge">${p.categoria}</span> `:''}${pv?`<span class="prv-badge">🏭 ${pv.nombre}</span>`:''}${p.precio?` · ${p.precio.toFixed(2)}€/${p.unidad||'ud'}`:''}${p.referencia?` · Ref: ${p.referencia}`:''}</div>
+        <div class="ped-linea-det">${p.categoria?`<span class="prv-badge">${p.categoria}</span> `:''}${pv?`<span class="prv-badge"> ${pv.nombre}</span>`:''}${p.precio?` · ${p.precio.toFixed(2)}€/${p.unidad||'ud'}`:''}${p.referencia?` · Ref: ${p.referencia}`:''}</div>
       </div>
       <div class="ped-qty">
         <button class="qty-btn" onclick="chgPedQty('${l.prodId}',-1)">−</button>
@@ -3347,7 +3356,7 @@ function renderPedidoActual(){
         <button class="qty-btn" onclick="chgPedQty('${l.prodId}',1)">+</button>
       </div>
       <span class="ped-subtotal">${sub?sub.toFixed(2)+' €':'—'}</span>
-      <button class="btn-icon del" onclick="quitarDePedido('${l.prodId}')">✕</button>
+      <button class="btn-icon del" onclick="quitarDePedido('${l.prodId}')"></button>
     </div>`;
   }).join('');
   document.getElementById('ped-total').textContent=total.toFixed(2)+' €';
@@ -3372,11 +3381,11 @@ function quitarDePedido(prodId){
 function vaciarPedido(){
   if(!pedidoActual.length)return;
   if(!confirm('¿Vaciar el pedido actual?'))return;
-  pedidoActual=[];renderPedidoActual();notif('Pedido vaciado','🗑');
+  pedidoActual=[];renderPedidoActual();notif('Pedido vaciado','');
 }
 
 function finalizarPedido(){
-  if(!pedidoActual.length){notif('El pedido está vacío','⚠️');return;}
+  if(!pedidoActual.length){notif('El pedido está vacío','');return;}
   if(!E.cfg.pedidosH)E.cfg.pedidosH=[];
   const notas=document.getElementById('ped-notas').value.trim();
   const total=pedidoActual.reduce((a,l)=>{const p=getProd(l.prodId);return a+(p&&p.precio?p.precio*l.qty:0);},0);
@@ -3391,7 +3400,7 @@ function finalizarPedido(){
   pedidoActual=[];
   if(document.getElementById('ped-notas'))document.getElementById('ped-notas').value='';
   guardar();renderPedidoActual();
-  notif('Pedido #'+E.cfg.pedidosH.length+' creado','✅');
+  notif('Pedido #'+E.cfg.pedidosH.length+' creado','');
   // Exportar automáticamente
   exportarPedido(pedido);
 }
@@ -3419,12 +3428,12 @@ function renderAlertas(){
     const critico=(p.stock||0)<=0;
     const pv=getProv(p.proveedorId);
     return`<div class="stock-alert ${critico?'critico':''}">
-      <span style="font-size:16px;">${critico?'🔴':'🟡'}</span>
+      <span style="font-size:16px;">${critico?'':''}</span>
       <div style="flex:1;">
         <div style="font-weight:600;">${p.nombre} <span style="font-weight:400;color:var(--texto-dim);">${critico?'— SIN STOCK':'— stock bajo'}</span></div>
-        <div style="font-size:11px;color:var(--texto-dim);">${pv?'🏭 '+pv.nombre+' · ':''} Stock: ${p.stock||0} / Mín: ${p.stockMin||0}</div>
+        <div style="font-size:11px;color:var(--texto-dim);">${pv?' '+pv.nombre+' · ':''} Stock: ${p.stock||0} / Mín: ${p.stockMin||0}</div>
       </div>
-      <button class="btn-p sm" onclick="abrirAddPed('${p.id}')">🛒 Pedir</button>
+      <button class="btn-p sm" onclick="abrirAddPed('${p.id}')"> Pedir</button>
     </div>`;
   }).join('');
 }
@@ -3445,7 +3454,7 @@ function renderHistorialPed(){
     return`<div class="hped-item" onclick="verPedido('${ped.id}')">
       <div class="hped-top">
         <div>
-          <span class="hped-fecha">📋 Pedido — ${fmtF(ped.fecha)}</span>
+          <span class="hped-fecha"> Pedido — ${fmtF(ped.fecha)}</span>
           <span class="hped-estado ${ped.estado}" style="margin-left:8px;">${ped.estado.charAt(0).toUpperCase()+ped.estado.slice(1)}</span>
         </div>
         <span class="hped-total">${ped.total?ped.total.toFixed(2)+' €':'—'}</span>
@@ -3453,10 +3462,10 @@ function renderHistorialPed(){
       <div class="hped-items">${preview}</div>
       <div style="display:flex;gap:6px;margin-top:8px;">
         <button class="btn-s" style="font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();cambiarEstadoPed('${ped.id}','pendiente')">⏳ Pendiente</button>
-        <button class="btn-s" style="font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();cambiarEstadoPed('${ped.id}','enviado')">📦 Enviado</button>
-        <button class="btn-s" style="font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();cambiarEstadoPed('${ped.id}','recibido')">✅ Recibido</button>
+        <button class="btn-s" style="font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();cambiarEstadoPed('${ped.id}','enviado')"> Enviado</button>
+        <button class="btn-s" style="font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();cambiarEstadoPed('${ped.id}','recibido')"> Recibido</button>
         <button class="btn-icon" onclick="event.stopPropagation();exportarPedido(E.cfg.pedidosH.find(p=>p.id==='${ped.id}'))" title="Exportar">⬇</button>
-        <button class="btn-icon del" onclick="event.stopPropagation();eliminarPedH('${ped.id}')" title="Eliminar">✕</button>
+        <button class="btn-icon del" onclick="event.stopPropagation();eliminarPedH('${ped.id}')" title="Eliminar"></button>
       </div>
     </div>`;
   }).join('');
@@ -3472,7 +3481,7 @@ function cambiarEstadoPed(id,estado){
       const p=getProd(l.prodId);
       if(p)p.stock=(p.stock||0)+l.qty;
     });
-    notif('Stock actualizado automáticamente','📦');
+    notif('Stock actualizado automáticamente','');
   }
   guardar();renderHistorialPed();renderAlertas();
 }
@@ -3483,7 +3492,7 @@ function verPedido(id){
   document.getElementById('hped-body').innerHTML=`
     <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;">
       <span class="hped-estado ${ped.estado}" style="font-size:12px;">${ped.estado.charAt(0).toUpperCase()+ped.estado.slice(1)}</span>
-      ${ped.notas?`<span style="font-size:12px;color:var(--texto-dim);">📝 ${ped.notas}</span>`:''}
+      ${ped.notas?`<span style="font-size:12px;color:var(--texto-dim);"> ${ped.notas}</span>`:''}
     </div>
     ${ped.lineas.map(l=>{
       const p=getProd(l.prodId);const pv=p?getProv(p.proveedorId):null;
@@ -3502,11 +3511,11 @@ function verPedido(id){
 function eliminarPedH(id){
   if(!confirm('¿Eliminar este pedido del historial?'))return;
   E.cfg.pedidosH=(E.cfg.pedidosH||[]).filter(p=>p.id!==id);
-  guardar();renderHistorialPed();notif('Pedido eliminado','🗑');
+  guardar();renderHistorialPed();notif('Pedido eliminado','');
 }
 
 function exportarHistorialPed(){
-  const peds=E.cfg.pedidosH||[];if(!peds.length){notif('Sin pedidos en historial','⚠️');return;}
+  const peds=E.cfg.pedidosH||[];if(!peds.length){notif('Sin pedidos en historial','');return;}
   const filas=[['Fecha','Estado','Productos','Total €','Notas']];
   peds.forEach(ped=>{
     const prev=ped.lineas.map(l=>{const p=getProd(l.prodId);return p?p.nombre+' ×'+l.qty:'—';}).join(' | ');
@@ -3531,15 +3540,15 @@ function getPrecioSrv(nombreSrv){
 // Abre modal de cobro para una cita
 function abrirCobro(citaId){
   const cita=E.citas.find(c=>c.id===citaId);
-  if(!cita){notif('Cita no encontrada','⚠️');return;}
-  if(esCitaCobrada(citaId)){notif('Esta cita ya está cobrada','⚠️');return;}
+  if(!cita){notif('Cita no encontrada','');return;}
+  if(esCitaCobrada(citaId)){notif('Esta cita ya está cobrada','');return;}
   const cl=getC(cita.clienteId);
 
   // Poblar datos en modal
   document.getElementById('cobro-cita-id').value=citaId;
   document.getElementById('cobro-cliente').textContent=cl?cl.nombre:'—';
   document.getElementById('cobro-hora').textContent=
-    `${fmtF(cita.fecha)} · ${cita.hora}h · ${cl&&cl.telefono?'📞 '+cl.telefono:'Sin teléfono'}`;
+    `${fmtF(cita.fecha)} · ${cita.hora}h · ${cl&&cl.telefono?' '+cl.telefono:'Sin teléfono'}`;
 
   // Select de servicios
   const sel=document.getElementById('cobro-srv');
@@ -3583,7 +3592,7 @@ function selCobroMetodo(met){
   });
   const precio=parseFloat(document.getElementById('cobro-precio').value)||0;
   const conf=document.getElementById('cobro-confirmar');
-  const icos={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+  const icos={efectivo:'',tarjeta:'',bizum:''};
   conf.disabled=false;conf.style.opacity='1';conf.style.cursor='pointer';
   conf.textContent=`${icos[met]} Cobrar ${precio>0?precio.toFixed(2)+'€':''}`;
 }
@@ -3606,8 +3615,8 @@ function confirmarCobro(){
   const precio=parseFloat(document.getElementById('cobro-precio').value);
   const met=E.cobroMetodoSel;
 
-  if(!met){notif('Selecciona método de pago','⚠️');return;}
-  if(!srv){notif('Indica el servicio','⚠️');return;}
+  if(!met){notif('Selecciona método de pago','');return;}
+  if(!srv){notif('Indica el servicio','');return;}
   if(isNaN(precio)||precio<0){notif('Precio no válido','⚠️');return;}
 
   const cita=E.citas.find(c=>c.id===citaId);
@@ -3633,8 +3642,8 @@ function confirmarCobro(){
   renderSlots();
   renderSem();
   if(document.getElementById('sec-finanzas').classList.contains('activa'))renderFin();
-  const icos={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
-  notif(`${icos[met]} Cobrado: ${precio.toFixed(2)}€ — ${cl?cl.nombre.split(' ')[0]:'Cliente'}`,'✅');
+  const icos={efectivo:'',tarjeta:'',bizum:''};
+  notif(`${icos[met]} Cobrado: ${precio.toFixed(2)}€ — ${cl?cl.nombre.split(' ')[0]:'Cliente'}`,'');
 }
 
 // ============ CIERRE DE CAJA ============
@@ -3675,16 +3684,16 @@ function renderCierreCaja(){
     const precioDef=getPrecioSrv(cita.servicio);
     // Si ya está cobrada, mostrar el movimiento
     const mov=E.movimientos.find(m=>m.citaId===cita.id);
-    const icos={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+    const icos={efectivo:'',tarjeta:'',bizum:''};
 
     if(cobrada&&mov){
       return`<div class="cierre-row cobrada">
-        <span style="font-size:16px;">✅</span>
+        <span style="font-size:16px;"></span>
         <div class="cierre-row-info">
           <div class="cierre-row-nom">${cl?cl.nombre:'—'} · ${cita.hora}h</div>
           <div class="cierre-row-det">${mov.desc} · ${icos[mov.metodo]||''} ${mov.metodo} · ${mov.importe.toFixed(2)}€</div>
         </div>
-        <span class="slot-cobrado">✓ Cobrado</span>
+        <span class="slot-cobrado"> Cobrado</span>
         <button class="btn-icon del" onclick="delMov('${mov.id}')" title="Deshacer cobro" style="pointer-events:all;">↩</button>
       </div>`;
     }
@@ -3703,9 +3712,9 @@ function renderCierreCaja(){
         </div>
       </div>
       <div class="cierre-metodo-btns">
-        <button class="cmb" onclick="cobrarCierreFila('${cita.id}','efectivo')" title="Cobrar en efectivo">💵 Ef.</button>
-        <button class="cmb" onclick="cobrarCierreFila('${cita.id}','tarjeta')" title="Cobrar con tarjeta">💳 Tar.</button>
-        <button class="cmb" onclick="cobrarCierreFila('${cita.id}','bizum')" title="Cobrar con Bizum">📱 Biz.</button>
+        <button class="cmb" onclick="cobrarCierreFila('${cita.id}','efectivo')" title="Cobrar en efectivo"> Ef.</button>
+        <button class="cmb" onclick="cobrarCierreFila('${cita.id}','tarjeta')" title="Cobrar con tarjeta"> Tar.</button>
+        <button class="cmb" onclick="cobrarCierreFila('${cita.id}','bizum')" title="Cobrar con Bizum"> Biz.</button>
       </div>
     </div>`;
   }).join('');
@@ -3746,8 +3755,8 @@ function cobrarCierreFila(citaId,metodo){
 function cobrarTodas(metodo){
   const dia=getFinDia();
   const pendientes=E.citas.filter(c=>c.fecha===dia&&!esCitaCobrada(c.id));
-  if(!pendientes.length){notif('No hay citas pendientes de cobro','⚠️');return;}
-  const icos={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+  if(!pendientes.length){notif('No hay citas pendientes de cobro','');return;}
+  const icos={efectivo:'',tarjeta:'',bizum:''};
   let n=0;
   pendientes.forEach(cita=>{
     const srv=document.getElementById('csrv-'+cita.id)?.value||cita.servicio;
@@ -3762,7 +3771,7 @@ function cobrarTodas(metodo){
     n++;
   });
   guardar();renderCierreCaja();renderFin();renderSlots();
-  notif(`${icos[metodo]} ${n} cita${n>1?'s':''} cobrada${n>1?'s':''}  · Total registrado`,'✅');
+  notif(`${icos[metodo]} ${n} cita${n>1?'s':''} cobrada${n>1?'s':''}  · Total registrado`,'');
 }
 
 // ============ INIT ============
@@ -3788,7 +3797,7 @@ function init(){
 <div class="modal-overlay" id="m-prod">
   <div class="modal wide">
     <div class="modal-line"></div>
-    <div class="modal-tit"><span id="m-prod-tit">Nuevo producto</span><button class="modal-cerrar" onclick="cm('m-prod')">✕</button></div>
+    <div class="modal-tit"><span id="m-prod-tit">Nuevo producto</span><button class="modal-cerrar" onclick="cm('m-prod')"></button></div>
     <div class="cols2">
       <div class="fg" style="grid-column:1/-1;"><label>Nombre del producto</label><input type="text" id="prod-nom" placeholder="Ej: Pomada de fijación fuerte"></div>
       <div class="fg"><label>Categoría</label><input type="text" id="prod-cat" placeholder="Ej: Fijadores, Cuchillas, Champús…" list="cat-datalist"><datalist id="cat-datalist"></datalist></div>
@@ -3805,7 +3814,7 @@ function init(){
     <input type="hidden" id="prod-id">
     <div style="display:flex;gap:8px;margin-top:4px;">
       <button class="btn-p" onclick="guardarProd()">Guardar producto</button>
-      <button class="btn-s" id="btn-del-prod" onclick="eliminarProdActual()" style="display:none;">🗑 Eliminar</button>
+      <button class="btn-s" id="btn-del-prod" onclick="eliminarProdActual()" style="display:none;"> Eliminar</button>
     </div>
   </div>
 </div>
@@ -3814,7 +3823,7 @@ function init(){
 <div class="modal-overlay" id="m-prov">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit"><span id="m-prov-tit">Nuevo proveedor</span><button class="modal-cerrar" onclick="cm('m-prov')">✕</button></div>
+    <div class="modal-tit"><span id="m-prov-tit">Nuevo proveedor</span><button class="modal-cerrar" onclick="cm('m-prov')"></button></div>
     <div class="fg"><label>Nombre del proveedor</label><input type="text" id="prov-nom" placeholder="Ej: Salerm Cosmetics"></div>
     <div class="fg"><label>Persona de contacto</label><input type="text" id="prov-contacto" placeholder="Nombre del comercial"></div>
     <div class="fg"><label>Teléfono</label><input type="tel" id="prov-tel" placeholder="600 000 000"></div>
@@ -3825,7 +3834,7 @@ function init(){
     <input type="hidden" id="prov-id">
     <div style="display:flex;gap:8px;">
       <button class="btn-p" onclick="guardarProv()">Guardar proveedor</button>
-      <button class="btn-s" id="btn-del-prov" onclick="eliminarProvActual()" style="display:none;">🗑 Eliminar</button>
+      <button class="btn-s" id="btn-del-prov" onclick="eliminarProvActual()" style="display:none;"> Eliminar</button>
     </div>
   </div>
 </div>
@@ -3834,7 +3843,7 @@ function init(){
 <div class="modal-overlay" id="m-addped">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit"><span id="addped-tit">Añadir al pedido</span><button class="modal-cerrar" onclick="cm('m-addped')">✕</button></div>
+    <div class="modal-tit"><span id="addped-tit">Añadir al pedido</span><button class="modal-cerrar" onclick="cm('m-addped')"></button></div>
     <div style="background:var(--surface2);border:1px solid var(--borde);border-radius:8px;padding:13px 15px;margin-bottom:14px;" id="addped-info"></div>
     <div class="fg"><label>Cantidad a pedir</label>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -3857,7 +3866,7 @@ function init(){
 <div class="modal-overlay" id="m-hped">
   <div class="modal wide">
     <div class="modal-line"></div>
-    <div class="modal-tit"><span id="hped-tit">Pedido</span><button class="modal-cerrar" onclick="cm('m-hped')">✕</button></div>
+    <div class="modal-tit"><span id="hped-tit">Pedido</span><button class="modal-cerrar" onclick="cm('m-hped')"></button></div>
     <div id="hped-body"></div>
   </div>
 </div>
@@ -3866,7 +3875,7 @@ function init(){
 <div class="modal-overlay" id="m-walkin">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit">⚡ Cliente sin cita <button class="modal-cerrar" onclick="cm('m-walkin')">✕</button></div>
+    <div class="modal-tit">Cliente sin cita <button class="modal-cerrar" onclick="cm('m-walkin')"></button></div>
     <p style="font-size:12px;color:var(--texto-dim);margin-bottom:14px;">
       Para clientes que vienen sin reservar hora. Se registra como visita de hoy y cuenta en el dashboard, estadísticas y caja, aunque no tengas su nombre.
     </p>
@@ -3908,13 +3917,13 @@ function init(){
     <div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--texto-dim);margin-bottom:8px;">Método de pago</div>
     <div class="cobro-metodos">
       <button class="cobro-btn" id="wbtn-efectivo" onclick="selWalkinMetodo('efectivo')">
-        <span class="cb-ico">💵</span><span class="cb-lbl">Efectivo</span><span class="cb-sub">En mano</span>
+        <span class="cb-ico"></span><span class="cb-lbl">Efectivo</span><span class="cb-sub">En mano</span>
       </button>
       <button class="cobro-btn" id="wbtn-tarjeta" onclick="selWalkinMetodo('tarjeta')">
-        <span class="cb-ico">💳</span><span class="cb-lbl">Tarjeta</span><span class="cb-sub">Datáfono</span>
+        <span class="cb-ico"></span><span class="cb-lbl">Tarjeta</span><span class="cb-sub">Datáfono</span>
       </button>
       <button class="cobro-btn" id="wbtn-bizum" onclick="selWalkinMetodo('bizum')">
-        <span class="cb-ico">📱</span><span class="cb-lbl">Bizum</span><span class="cb-sub">Transferencia</span>
+        <span class="cb-ico"></span><span class="cb-lbl">Bizum</span><span class="cb-sub">Transferencia</span>
       </button>
     </div>
 
@@ -3929,7 +3938,7 @@ function init(){
 <div class="modal-overlay" id="m-cobro">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit">💰 Cobrar servicio <button class="modal-cerrar" onclick="cm('m-cobro')">✕</button></div>
+    <div class="modal-tit"> Cobrar servicio <button class="modal-cerrar" onclick="cm('m-cobro')"></button></div>
     <div style="background:var(--surface2);border:1px solid var(--borde);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
       <div style="font-weight:700;font-size:14px;" id="cobro-cliente">—</div>
       <div style="font-size:11px;color:var(--texto-dim);margin-top:3px;" id="cobro-hora">—</div>
@@ -3948,13 +3957,13 @@ function init(){
     <div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--texto-dim);margin-bottom:8px;">Método de pago</div>
     <div class="cobro-metodos">
       <button class="cobro-btn" id="cbtn-efectivo" onclick="selCobroMetodo('efectivo')">
-        <span class="cb-ico">💵</span><span class="cb-lbl">Efectivo</span><span class="cb-sub">En mano</span>
+        <span class="cb-ico"></span><span class="cb-lbl">Efectivo</span><span class="cb-sub">En mano</span>
       </button>
       <button class="cobro-btn" id="cbtn-tarjeta" onclick="selCobroMetodo('tarjeta')">
-        <span class="cb-ico">💳</span><span class="cb-lbl">Tarjeta</span><span class="cb-sub">Datáfono</span>
+        <span class="cb-ico"></span><span class="cb-lbl">Tarjeta</span><span class="cb-sub">Datáfono</span>
       </button>
       <button class="cobro-btn" id="cbtn-bizum" onclick="selCobroMetodo('bizum')">
-        <span class="cb-ico">📱</span><span class="cb-lbl">Bizum</span><span class="cb-sub">Transferencia</span>
+        <span class="cb-ico"></span><span class="cb-lbl">Bizum</span><span class="cb-sub">Transferencia</span>
       </button>
     </div>
     <input type="hidden" id="cobro-cita-id">
@@ -3969,7 +3978,7 @@ function init(){
 <div class="modal-overlay" id="m-pin">
   <div class="modal" style="width:320px;">
     <div class="modal-line"></div>
-    <div class="modal-tit">🔒 Acceso administrador <button class="modal-cerrar" onclick="cm('m-pin');document.getElementById('selector-rol').value='barbero';">✕</button></div>
+    <div class="modal-tit"> Acceso administrador <button class="modal-cerrar" onclick="cm('m-pin');document.getElementById('selector-rol').value='barbero';"></button></div>
     <p style="font-size:12px;color:var(--texto-dim);margin-bottom:14px;">Introduce el PIN de administrador para volver al modo completo.</p>
     <div class="fg"><input type="password" id="pin-input" placeholder="PIN" maxlength="8" inputmode="numeric"
       style="text-align:center;font-size:22px;letter-spacing:4px;font-family:'Bebas Neue',cursive;"
@@ -3982,19 +3991,19 @@ function init(){
 <div class="modal-overlay" id="m-plantillas">
   <div class="modal wide">
     <div class="modal-line"></div>
-    <div class="modal-tit">💬 Plantillas de WhatsApp <button class="modal-cerrar" onclick="cm('m-plantillas')">✕</button></div>
+    <div class="modal-tit"> Plantillas de WhatsApp <button class="modal-cerrar" onclick="cm('m-plantillas')"></button></div>
     <p style="font-size:12px;color:var(--texto-dim);margin-bottom:14px;">
       Personaliza los mensajes automáticos. Variables disponibles: <code style="background:var(--surface3);padding:1px 5px;border-radius:4px;">{nombre}</code> <code style="background:var(--surface3);padding:1px 5px;border-radius:4px;">{negocio}</code> <code style="background:var(--surface3);padding:1px 5px;border-radius:4px;">{fecha}</code> <code style="background:var(--surface3);padding:1px 5px;border-radius:4px;">{hora}</code> <code style="background:var(--surface3);padding:1px 5px;border-radius:4px;">{servicio}</code>
     </p>
 
     <div class="fg">
-      <label>📅 Recordatorio de cita</label>
+      <label> Recordatorio de cita</label>
       <textarea id="plant-recordatorio" rows="6" style="background:var(--input-bg);border:1px solid var(--borde);color:var(--texto);padding:10px 12px;border-radius:7px;font-size:13px;font-family:'Inter',sans-serif;outline:none;resize:vertical;width:100%;line-height:1.5;"></textarea>
       <div style="font-size:11px;color:var(--texto-dim);margin-top:3px;">Se usa en Agenda y en Recordatorios.</div>
     </div>
 
     <div class="fg">
-      <label>⏱️ Aviso de hueco libre (lista de espera)</label>
+      <label>⏱ Aviso de hueco libre (lista de espera)</label>
       <textarea id="plant-espera" rows="5" style="background:var(--input-bg);border:1px solid var(--borde);color:var(--texto);padding:10px 12px;border-radius:7px;font-size:13px;font-family:'Inter',sans-serif;outline:none;resize:vertical;width:100%;line-height:1.5;"></textarea>
       <div style="font-size:11px;color:var(--texto-dim);margin-top:3px;">{servicio} se sustituye solo si el cliente indicó un servicio deseado.</div>
     </div>
@@ -4010,7 +4019,7 @@ function init(){
 <div class="modal-overlay" id="m-hist">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit"><span id="hist-tit">Historial</span><button class="modal-cerrar" onclick="cm('m-hist')">✕</button></div>
+    <div class="modal-tit"><span id="hist-tit">Historial</span><button class="modal-cerrar" onclick="cm('m-hist')"></button></div>
     <div id="hist-body" style="display:flex;flex-direction:column;gap:5px;"></div>
   </div>
 </div>
@@ -4019,7 +4028,7 @@ function init(){
 <div class="modal-overlay" id="m-espera">
   <div class="modal">
     <div class="modal-line"></div>
-    <div class="modal-tit">⏱️ Añadir a lista de espera <button class="modal-cerrar" onclick="cm('m-espera')">✕</button></div>
+    <div class="modal-tit">⏱ Añadir a lista de espera <button class="modal-cerrar" onclick="cm('m-espera')"></button></div>
     <div class="fg"><label>Cliente</label><input type="text" id="esp-nom" placeholder="Nombre del cliente…" autocomplete="off" oninput="acEsp()"><div class="ac-list" id="ac-esp" style="display:none;"></div></div>
     <div class="fg"><label>Teléfono</label><input type="tel" id="esp-tel" placeholder="600 000 000"></div>
     <div class="fg"><label>Servicio deseado</label><select id="esp-srv"></select></div>
@@ -4049,7 +4058,7 @@ function getBarberos(){return(E.cfg.barberos||[]).filter(b=>b.activo);}
 function getBarbero(id){return(E.cfg.barberos||[]).find(b=>b.id===id);}
 function getBarberoTag(bId){
   const b=getBarbero(bId);if(!b)return'';
-  return`<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;background:${b.color}22;border:1px solid ${b.color}55;color:${b.color};flex-shrink:0;">✂️ ${b.nombre}</span>`;
+  return`<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;background:${b.color}22;border:1px solid ${b.color}55;color:${b.color};flex-shrink:0;"> ${b.nombre}</span>`;
 }
 function getBarberoParaCita(){
   if(!E.cfg.multibarberoActivo){const p=getBarberos()[0];return p?p.id:'b-principal';}
@@ -4064,7 +4073,7 @@ function getBarberoParaCitaModal(){
 function toggleMultibarbero(v){
   E.cfg.multibarberoActivo=v;
   guardar();actualizarVisBarbero();renderListaBarberos();
-  notif(v?'Modo multi-barbero activado':'Todas las citas al barbero principal','✂️');
+  notif(v?'Modo multi-barbero activado':'Todas las citas al barbero principal','');
 }
 function actualizarVisBarbero(){
   const activo=E.cfg.multibarberoActivo;
@@ -4077,16 +4086,16 @@ function fillBarberoSelects(){
   const opts=barbs.map(b=>`<option value="${b.id}">${b.nombre}</option>`).join('');
   ['f-barbero','mc-barbero'].forEach(id=>{const sel=document.getElementById(id);if(!sel)return;const prev=sel.value;sel.innerHTML=opts;if(prev)sel.value=prev;});
   const fil=document.getElementById('fil-barbero');
-  if(fil){const prev=fil.value;fil.innerHTML='<option value="">👥 Todos</option>'+opts;if(prev)fil.value=prev;}
+  if(fil){const prev=fil.value;fil.innerHTML='<option value=""> Todos</option>'+opts;if(prev)fil.value=prev;}
 }
 function addBarbero(){
   const nom=document.getElementById('barb-nom').value.trim();
   const col=document.getElementById('barb-color').value;
-  if(!nom){notif('Nombre obligatorio','⚠️');return;}
+  if(!nom){notif('Nombre obligatorio','');return;}
   if(!E.cfg.barberos)E.cfg.barberos=[];
   E.cfg.barberos.push({id:uid(),nombre:nom,color:col,activo:true});
   guardar();renderListaBarberos();fillBarberoSelects();
-  document.getElementById('barb-nom').value='';notif('Barbero añadido','✂️');
+  document.getElementById('barb-nom').value='';notif('Barbero añadido','');
 }
 function renderListaBarberos(){
   const lista=document.getElementById('lista-barberos');if(!lista)return;
@@ -4098,7 +4107,7 @@ function renderListaBarberos(){
       <span style="flex:1;font-size:13px;font-weight:600;">${b.nombre}</span>
       ${b.id==='b-principal'?'<span style="font-size:10px;color:var(--texto-dim);">Principal</span>':''}
       <input type="color" value="${b.color}" onchange="cambiarColorBarbero('${b.id}',this.value)" style="width:28px;height:28px;border-radius:5px;border:1px solid var(--borde);background:var(--input-bg);cursor:pointer;padding:1px;">
-      ${b.id!=='b-principal'?`<button class="btn-icon del" onclick="eliminarBarbero('${b.id}')">✕</button>`:''}
+      ${b.id!=='b-principal'?`<button class="btn-icon del" onclick="eliminarBarbero('${b.id}')"></button>`:''}
     </div>`).join('');
 }
 function cambiarColorBarbero(id,color){const b=getBarbero(id);if(b)b.color=color;guardar();renderListaBarberos();}
@@ -4106,7 +4115,7 @@ function eliminarBarbero(id){
   const n=E.citas.filter(c=>c.barberoId===id).length;
   if(n&&!confirm(`Este barbero tiene ${n} citas. ¿Eliminar igualmente?`))return;
   E.cfg.barberos=E.cfg.barberos.filter(b=>b.id!==id);
-  guardar();renderListaBarberos();fillBarberoSelects();notif('Barbero eliminado','🗑');
+  guardar();renderListaBarberos();fillBarberoSelects();notif('Barbero eliminado','');
 }
 
 // ---- GASTOS FIJOS ----
@@ -4114,16 +4123,16 @@ function addGastoFijo(){
   const nom=document.getElementById('gf-nom').value.trim();
   const imp=parseFloat(document.getElementById('gf-imp').value)||0;
   const per=document.getElementById('gf-period').value;
-  if(!nom||!imp){notif('Nombre e importe requeridos','⚠️');return;}
+  if(!nom||!imp){notif('Nombre e importe requeridos','');return;}
   if(!E.cfg.gastosFijos)E.cfg.gastosFijos=[];
   E.cfg.gastosFijos.push({id:uid(),nombre:nom,importe:imp,periodicidad:per,historial:[],vigenteDesde:fStr(new Date())});
   guardar();renderGastosFijos();
   document.getElementById('gf-nom').value='';document.getElementById('gf-imp').value='';
-  notif('Gasto fijo añadido','📑');
+  notif('Gasto fijo añadido','');
 }
 function delGastoFijo(id){
   E.cfg.gastosFijos=(E.cfg.gastosFijos||[]).filter(g=>g.id!==id);
-  guardar();renderGastosFijos();notif('Eliminado','🗑');
+  guardar();renderGastosFijos();notif('Eliminado','');
 }
 function renderGastosFijos(){
   const lista=document.getElementById('lista-gastosfijos');if(!lista)return;
@@ -4134,7 +4143,7 @@ function renderGastosFijos(){
     return`<div class="ing-row" style="margin-bottom:5px;gap:8px;">
       <input type="text" value="${(g.nombre||'').replace(/"/g,'&quot;')}" onchange="renombrarGastoFijo('${g.id}',this.value)"
         style="background:transparent;border:none;color:var(--texto);font-size:13px;font-weight:500;outline:none;flex:1;padding:2px;">
-      ${hist.length?`<button class="btn-icon" onclick="verHistorialGF('${g.id}')" title="Ver historial de importes">📜</button>`:''}
+      ${hist.length?`<button class="btn-icon" onclick="verHistorialGF('${g.id}')" title="Ver historial de importes"></button>`:''}
       <select onchange="cambiarPeriodGF('${g.id}',this.value)" style="background:var(--input-bg);border:1px solid var(--borde);color:var(--texto-mid);font-size:11px;border-radius:5px;padding:4px 6px;outline:none;">
         <option value="mensual" ${g.periodicidad==='mensual'?'selected':''}>Mensual</option>
         <option value="semanal" ${g.periodicidad==='semanal'?'selected':''}>Semanal</option>
@@ -4142,7 +4151,7 @@ function renderGastosFijos(){
       <input type="number" value="${g.importe}" min="0" step="0.5" onchange="cambiarImporteGF('${g.id}',this.value)"
         style="background:var(--input-bg);border:1px solid var(--borde);color:var(--rojo);font-family:'Bebas Neue',cursive;font-size:16px;outline:none;width:70px;text-align:right;padding:4px 6px;border-radius:5px;">
       <span style="font-size:11px;color:var(--texto-dim);">€</span>
-      <button class="btn-icon del" onclick="delGastoFijo('${g.id}')">✕</button>
+      <button class="btn-icon del" onclick="delGastoFijo('${g.id}')"></button>
     </div>`;
   }).join('');
   actualizarTotGF();
@@ -4167,11 +4176,11 @@ function verHistorialGF(id){
 function renombrarGastoFijo(id,nuevoNombre){
   const g=(E.cfg.gastosFijos||[]).find(x=>x.id===id);if(!g)return;
   nuevoNombre=nuevoNombre.trim();if(!nuevoNombre){renderGastosFijos();return;}
-  g.nombre=nuevoNombre;guardar();notif('Nombre actualizado','✏️');
+  g.nombre=nuevoNombre;guardar();notif('Nombre actualizado','');
 }
 function cambiarPeriodGF(id,periodo){
   const g=(E.cfg.gastosFijos||[]).find(x=>x.id===id);if(!g)return;
-  g.periodicidad=periodo;guardar();renderGastosFijos();notif('Periodicidad actualizada','✏️');
+  g.periodicidad=periodo;guardar();renderGastosFijos();notif('Periodicidad actualizada','');
 }
 function cambiarImporteGF(id,nuevoImporte){
   const g=(E.cfg.gastosFijos||[]).find(x=>x.id===id);if(!g)return;
@@ -4182,7 +4191,7 @@ function cambiarImporteGF(id,nuevoImporte){
   g.importe=importe;
   g.vigenteDesde=fStr(new Date());
   guardar();renderGastosFijos();
-  notif(`"${g.nombre}" actualizado a ${importe.toFixed(2)}€ — vigente desde ${mesEs(fStr(new Date()))}`,'📑');
+  notif(`"${g.nombre}" actualizado a ${importe.toFixed(2)}€ — vigente desde ${mesEs(fStr(new Date()))}`,'');
 }
 function actualizarTotGF(){
   const gastos=E.cfg.gastosFijos||[];
@@ -4229,7 +4238,7 @@ function guardarEspera(){
   const franja=document.getElementById('esp-franja').value;
   const notas=document.getElementById('esp-notas').value.trim();
   let cid=document.getElementById('esp-cid').value;
-  if(!nom){notif('Indica el nombre del cliente','⚠️');return;}
+  if(!nom){notif('Indica el nombre del cliente','');return;}
   if(!cid){let ex=E.clientes.find(c=>c.nombre.toLowerCase()===nom.toLowerCase());if(ex)cid=ex.id;else{const nc={id:uid(),nombre:nom,telefono:tel,email:'',notas:'',creadoEn:new Date().toISOString()};E.clientes.push(nc);cid=nc.id;}}
   if(!E.listaEspera)E.listaEspera=[];
   E.listaEspera.push({id:uid(),clienteId:cid,nombre:nom,tel,servicioDeseado:srv,fechaPreferida:fecha,franja,notas,creadoEn:new Date().toISOString()});
@@ -4249,24 +4258,24 @@ function renderEspera(){
       <div style="flex:1;">
         <div style="font-weight:600;font-size:13px;">${e.nombre}</div>
         <div style="font-size:11px;color:var(--texto-dim);margin-top:3px;display:flex;gap:10px;flex-wrap:wrap;">
-          ${tel?`<span>📞 ${tel}</span>`:''}
-          <span>✂️ ${e.servicioDeseado||'—'}</span>
-          ${e.fechaPreferida?`<span>📅 ${fmtF(e.fechaPreferida)}</span>`:''}
+          ${tel?`<span> ${tel}</span>`:''}
+          <span> ${e.servicioDeseado||'—'}</span>
+          ${e.fechaPreferida?`<span> ${fmtF(e.fechaPreferida)}</span>`:''}
           ${e.franja?`<span>⏰ ${e.franja}</span>`:''}
-          ${e.notas?`<span>📝 ${e.notas}</span>`:''}
+          ${e.notas?`<span> ${e.notas}</span>`:''}
         </div>
       </div>
       <div style="display:flex;gap:5px;flex-shrink:0;">
-        ${tel?`<button class="btn-icon wa-btn" onclick="avisarEsperaWA('${e.id}')" title="Avisar por WhatsApp">💬</button>`:''}
-        <button class="btn-icon grn" onclick="agendarDesdeEspera('${e.id}')" title="Agendar cita">📅</button>
-        <button class="btn-icon del" onclick="eliminarEspera('${e.id}')" title="Eliminar">✕</button>
+        ${tel?`<button class="btn-icon wa-btn" onclick="avisarEsperaWA('${e.id}')" title="Avisar por WhatsApp"></button>`:''}
+        <button class="btn-icon grn" onclick="agendarDesdeEspera('${e.id}')" title="Agendar cita"></button>
+        <button class="btn-icon del" onclick="eliminarEspera('${e.id}')" title="Eliminar"></button>
       </div>
     </div>`;
   }).join('');
 }
 function eliminarEspera(id){
   E.listaEspera=(E.listaEspera||[]).filter(e=>e.id!==id);
-  guardar();renderEspera();notif('Eliminado de la lista de espera','🗑');
+  guardar();renderEspera();notif('Eliminado de la lista de espera','');
 }
 function avisarEsperaWA(id){
   const e=(E.listaEspera||[]).find(x=>x.id===id);if(!e)return;
@@ -4287,7 +4296,7 @@ function agendarDesdeEspera(id){
     const tel=document.getElementById('f-t');if(tel)tel.value=e.tel||'';
     const srv=document.getElementById('f-s');if(srv)srv.value=e.servicioDeseado;
     const cid=document.getElementById('f-c');if(cid)cid.value=e.clienteId||'';
-    notif('Completa la hora y guarda la cita','📅');
+    notif('Completa la hora y guarda la cita','');
   },300);
 }
 function ofrecerListaEspera(fecha,hora,servicio){
@@ -4296,7 +4305,7 @@ function ofrecerListaEspera(fecha,hora,servicio){
   const nombres=candidatos.slice(0,3).map(e=>e.nombre).join(', ');
   const aviso=document.createElement('div');
   aviso.style.cssText='position:fixed;bottom:70px;right:20px;background:var(--surface2);border:1px solid var(--plata-oscuro);border-radius:9px;padding:13px 16px;font-size:12px;z-index:9998;max-width:300px;box-shadow:var(--sombra);';
-  aviso.innerHTML=`<div style="font-weight:700;margin-bottom:5px;">💡 Hueco libre</div>
+  aviso.innerHTML=`<div style="font-weight:700;margin-bottom:5px;"> Hueco libre</div>
     <div style="color:var(--texto-dim);">${candidatos.length} cliente${candidatos.length>1?'s':''} en espera:<br><strong style="color:var(--texto);">${nombres}</strong></div>
     <div style="display:flex;gap:6px;margin-top:8px;">
       <button onclick="ir('espera');this.closest('div').remove();" class="btn-p sm">Ver lista</button>
@@ -4315,8 +4324,8 @@ function marcarNoShow(citaId){
   const totalNS=E.citas.filter(c=>c.clienteId===cita.clienteId&&c.noShow).length;
   guardar();renderSlots();renderSem();
   let msg=`No-show: ${cl?cl.nombre:'cliente'}`;
-  if(totalNS>=2)msg+=` (${totalNS} veces) ⚠️`;
-  notif(msg,'⚠️');
+  if(totalNS>=2)msg+=` (${totalNS} veces) `;
+  notif(msg,'');
   ofrecerListaEspera(cita.fecha,cita.hora,cita.servicio);
 }
 
@@ -4342,12 +4351,12 @@ function renderRecordatorios(){
     const cl=getC(c.clienteId);const tel=cl?cl.telefono:'';const enviado=c.recordatorioEnviado||false;
     return`<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface2);border:1px solid ${enviado?'rgba(22,163,74,.3)':'var(--borde)'};border-radius:8px;${enviado?'opacity:.6;':''}">
       <div style="flex:1;">
-        <div style="font-weight:600;font-size:13px;">${cl?cl.nombre:'—'} ${enviado?'<span class="slot-cobrado">✓ Enviado</span>':''}</div>
-        <div style="font-size:11px;color:var(--texto-dim);margin-top:2px;">⏰ ${c.hora}h · ✂️ ${c.servicio}${tel?' · 📞 '+tel:''}</div>
+        <div style="font-weight:600;font-size:13px;">${cl?cl.nombre:'—'} ${enviado?'<span class="slot-cobrado"> Enviado</span>':''}</div>
+        <div style="font-size:11px;color:var(--texto-dim);margin-top:2px;">⏰ ${c.hora}h ·  ${c.servicio}${tel?' ·  '+tel:''}</div>
       </div>
       <div style="display:flex;gap:5px;flex-shrink:0;">
-        ${tel?`<button class="btn-icon wa-btn" onclick="enviarRecordatorio('${c.id}')">💬 WA</button>`:'<span style="font-size:11px;color:var(--texto-dim);">Sin tel.</span>'}
-        <button class="btn-icon" onclick="marcarRecordatorioEnviado('${c.id}')" title="Marcar enviado">✓</button>
+        ${tel?`<button class="btn-icon wa-btn" onclick="enviarRecordatorio('${c.id}')"> WA</button>`:'<span style="font-size:11px;color:var(--texto-dim);">Sin tel.</span>'}
+        <button class="btn-icon" onclick="marcarRecordatorioEnviado('${c.id}')" title="Marcar enviado"></button>
       </div>
     </div>`;
   }).join('');
@@ -4359,14 +4368,14 @@ function enviarRecordatorio(citaId){
 }
 function marcarRecordatorioEnviado(citaId){
   const cita=E.citas.find(c=>c.id===citaId);if(!cita)return;
-  cita.recordatorioEnviado=true;guardar();renderRecordatorios();notif('Marcado como enviado','✓');
+  cita.recordatorioEnviado=true;guardar();renderRecordatorios();notif('Marcado como enviado','');
 }
 function enviarTodosRecordatorios(){
   const dia=getRecordDia();
   const pend=E.citas.filter(c=>c.fecha===dia&&!c.recordatorioEnviado);
-  if(!pend.length){notif('Todos ya enviados','✅');return;}
+  if(!pend.length){notif('Todos ya enviados','');return;}
   pend.forEach(c=>c.recordatorioEnviado=true);
-  guardar();renderRecordatorios();notif(`${pend.length} recordatorio${pend.length>1?'s':''} marcados`,'✓');
+  guardar();renderRecordatorios();notif(`${pend.length} recordatorio${pend.length>1?'s':''} marcados`,'');
 }
 
 // ---- BUSCADOR GLOBAL ----
@@ -4376,17 +4385,17 @@ function buscadorGlobal(q){
   if(!q||q.length<2){res.style.display='none';return;}
   const qL=q.toLowerCase();const resultados=[];
   E.clientes.filter(c=>c.nombre.toLowerCase().includes(qL)||c.telefono.includes(q)).slice(0,4).forEach(c=>{
-    resultados.push({tipo:'cliente',ico:'👤',tit:c.nombre,sub:'📞 '+c.telefono+' · '+vis(c.id).length+' visitas',accion:`verDet('${c.id}')`});
+    resultados.push({tipo:'cliente',ico:'',tit:c.nombre,sub:' '+c.telefono+' · '+vis(c.id).length+' visitas',accion:`verDet('${c.id}')`});
   });
   E.citas.filter(c=>{const cl=getC(c.clienteId);return cl&&(cl.nombre.toLowerCase().includes(qL)||c.fecha.includes(qL.replace(/\//g,'-'))||c.servicio.toLowerCase().includes(qL));})
     .sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,4).forEach(c=>{
       const cl=getC(c.clienteId);
-      resultados.push({tipo:'cita',ico:'📅',tit:fmtF(c.fecha)+' · '+c.hora+'h · '+(cl?cl.nombre:'—'),sub:'✂️ '+c.servicio,accion:`irACita('${c.fecha}')`});
+      resultados.push({tipo:'cita',ico:'',tit:fmtF(c.fecha)+' · '+c.hora+'h · '+(cl?cl.nombre:'—'),sub:' '+c.servicio,accion:`irACita('${c.fecha}')`});
     });
   getCatalogo().filter(p=>p.nombre.toLowerCase().includes(qL)).slice(0,3).forEach(p=>{
-    resultados.push({tipo:'producto',ico:'📦',tit:p.nombre,sub:(p.categoria||'')+(p.precio?' · '+p.precio+'€':''),accion:`ir('pedidos')`});
+    resultados.push({tipo:'producto',ico:'',tit:p.nombre,sub:(p.categoria||'')+(p.precio?' · '+p.precio+'€':''),accion:`ir('pedidos')`});
   });
-  if(!resultados.length){res.innerHTML='<div class="empty" style="padding:12px 0;"><div class="empty-ico" style="font-size:22px;">🔍</div>Sin resultados</div>';res.style.display='block';return;}
+  if(!resultados.length){res.innerHTML='<div class="empty" style="padding:12px 0;"><div class="empty-ico" style="font-size:22px;"></div>Sin resultados</div>';res.style.display='block';return;}
   const tipoLbl={cliente:'Clientes',cita:'Citas',producto:'Catálogo'};
   let html='';let last='';
   resultados.forEach(r=>{
@@ -4413,12 +4422,12 @@ function inyectarDashExtras(){
   const grid=document.querySelector('.grid-stats');
   if(grid&&!document.getElementById('dash-noshows')){
     const card=document.createElement('div');card.className='stat-card';
-    card.innerHTML='<div class="stat-ico">👻</div><div class="stat-lbl">No-shows este mes</div><div class="stat-val" id="dash-noshows">0</div><div class="stat-sub">sin presentarse</div>';
+    card.innerHTML='<div class="stat-ico"></div><div class="stat-lbl">No-shows este mes</div><div class="stat-val" id="dash-noshows">0</div><div class="stat-sub">sin presentarse</div>';
     grid.appendChild(card);
   }
   if(!document.getElementById('dash-gf')&&(E.cfg.gastosFijos||[]).length){
     const dg=document.querySelector('.dash-grid');
-    if(dg){const card=document.createElement('div');card.className='card';card.innerHTML='<div class="card-tit">📑 Cobertura de gastos fijos</div><div id="dash-gf"></div>';dg.appendChild(card);}
+    if(dg){const card=document.createElement('div');card.className='card';card.innerHTML='<div class="card-tit"> Cobertura de gastos fijos</div><div id="dash-gf"></div>';dg.appendChild(card);}
   }
 }
 
@@ -4473,7 +4482,7 @@ function acWalkin(){
   if(!m.length){lista.style.display='none';return;}
   lista.innerHTML=m.map(c=>{
     const t=tipo(c.id);
-    const tag=t==='habitual'?'<span class="tag tag-h">⭐</span>':t==='ocasional'?'<span class="tag tag-o">💈</span>':'';
+    const tag=t==='habitual'?'<span class="tag tag-h">⭐</span>':t==='ocasional'?'<span class="tag tag-o"></span>':'';
     return`<div class="ac-item" onclick="selWalkinCliente('${c.id}')"><div><div class="ac-nom">${c.nombre}</div><div class="ac-tel">${c.telefono}</div></div>${tag}</div>`;
   }).join('');
   lista.style.display='block';
@@ -4495,7 +4504,7 @@ function selWalkinMetodo(met){
   ['efectivo','tarjeta','bizum'].forEach(m=>{const b=document.getElementById('wbtn-'+m);if(b)b.classList.toggle('sel',m===met);});
   const precio=parseFloat(document.getElementById('walkin-precio').value)||0;
   const conf=document.getElementById('walkin-confirmar');
-  const icos={efectivo:'💵',tarjeta:'💳',bizum:'📱'};
+  const icos={efectivo:'',tarjeta:'',bizum:''};
   conf.disabled=false;conf.style.opacity='1';conf.style.cursor='pointer';
   conf.textContent=`${icos[met]} Registrar ${precio>0?precio.toFixed(2)+'€':''}`;
 }
@@ -4508,8 +4517,8 @@ function confirmarWalkin(){
   const met=E.walkinMetodoSel;
   const hoy=fechaWI; // puede ser hoy u otro día
 
-  if(!met){notif('Selecciona método de pago','⚠️');return;}
-  if(!srv){notif('Indica el servicio','⚠️');return;}
+  if(!met){notif('Selecciona método de pago','');return;}
+  if(!srv){notif('Indica el servicio','');return;}
   if(isNaN(precio)||precio<0){notif('Precio no válido','⚠️');return;}
 
   let cid=document.getElementById('walkin-cid').value;
@@ -4589,11 +4598,11 @@ const SECCIONES_CONFIGURABLES=[
   {id:'recordatorios',ico:'🔔',nombre:'Recordatorios'},
   {id:'finanzas',ico:'💰',nombre:'Ingresos y Gastos'},
   {id:'estadisticas',ico:'📉',nombre:'Estadísticas'},
-  {id:'prevision',ico:'🔮',nombre:'Previsión'},
-  {id:'cierresem',ico:'📊',nombre:'Cierre semanal'},
-  {id:'notas',ico:'📝',nombre:'Notas del día'},
-  {id:'pedidos',ico:'🛒',nombre:'Pedidos'},
-  {id:'configuracion',ico:'⚙️',nombre:'Configuración'}
+  {id:'prevision',ico:'',nombre:'Previsión'},
+  {id:'cierresem',ico:'',nombre:'Cierre semanal'},
+  {id:'notas',ico:'',nombre:'Notas del día'},
+  {id:'pedidos',ico:'',nombre:'Pedidos'},
+  {id:'configuracion',ico:'',nombre:'Configuración'}
 ];
 function renderPermisosBarbero(){
   const cont=document.getElementById('lista-permisos-barbero');if(!cont)return;
@@ -4642,7 +4651,7 @@ function restaurarPlantillasDefecto(){
   if(!confirm('¿Restaurar las plantillas a su texto original?'))return;
   E.cfg.plantillas={
     recordatorio:'Hola {nombre} 👋\n\nTe recuerdo tu cita en *{negocio}*:\n\n📅 {fecha}\n⏰ {hora}h\n✂ {servicio}\n\n¡Te esperamos! Si no puedes venir, avísanos con antelación. Gracias 🙏',
-    espera:'Hola {nombre} 👋\n\nTe escribimos desde *{negocio}*. ¡Tenemos un hueco disponible para ti! {servicio}\n\n¿Te viene bien? Dinos qué día y hora te va mejor 💈'
+    espera:'Hola {nombre} \n\nTe escribimos desde *{negocio}*. ¡Tenemos un hueco disponible para ti! {servicio}\n\n¿Te viene bien? Dinos qué día y hora te va mejor '
   };
   guardar();
   document.getElementById('plant-recordatorio').value=E.cfg.plantillas.recordatorio;
@@ -4656,7 +4665,7 @@ function guardarPin(){
   E.cfg.pin=pin;
   guardar();
   document.getElementById('cfg-pin').value='';
-  notif(pin?'PIN guardado':'PIN eliminado — modo recepción sin protección','🔒');
+  notif(pin?'PIN guardado':'PIN eliminado — modo recepción sin protección','');
 }
 function cambiarRol(nuevoRol){
   if(nuevoRol==='admin'&&E.rolActual!=='admin'){
@@ -4675,9 +4684,9 @@ function confirmarPin(){
   if(intento===E.cfg.pin){
     cm('m-pin');
     aplicarRol('admin');
-    notif('Acceso administrador concedido','🔓');
+    notif('Acceso administrador concedido','');
   }else{
-    notif('PIN incorrecto','⚠️');
+    notif('PIN incorrecto','');
     document.getElementById('pin-input').value='';
     document.getElementById('pin-input').focus();
   }
@@ -4781,7 +4790,7 @@ function guardarLoginPwd(){
   E.cfg.loginPwd=pwd;
   guardar();
   document.getElementById('cfg-login-pwd').value='';
-  notif(pwd?'Contraseña de acceso guardada':'Contraseña eliminada — acceso libre','🔐');
+  notif(pwd?'Contraseña de acceso guardada':'Contraseña eliminada — acceso libre','');
 }
 
 // ===== RECURRENTES: badge en slot =====
@@ -4819,10 +4828,10 @@ function renderPrevision(){
   const prevHoy=citasHoy.filter(c=>!esCitaCobrada(c.id)).reduce((a,c)=>{const s=E.cfg.servicios.find(x=>x.nombre===c.servicio);return a+(s?s.precio:0);},0);
 
   document.getElementById('prev-kpis').innerHTML=`
-    <div class="prev-card"><div class="pv-ico">💰</div><div class="pv-lbl">Facturado hoy</div><div class="pv-val">${ingHoy.toFixed(0)}€</div><div class="pv-sub">cobrado</div></div>
+    <div class="prev-card"><div class="pv-ico"></div><div class="pv-lbl">Facturado hoy</div><div class="pv-val">${ingHoy.toFixed(0)}€</div><div class="pv-sub">cobrado</div></div>
     <div class="prev-card"><div class="pv-ico">⏳</div><div class="pv-lbl">Pendiente hoy</div><div class="pv-val">${prevHoy.toFixed(0)}€</div><div class="pv-sub">${citasHoy.filter(c=>!esCitaCobrada(c.id)).length} citas</div></div>
-    <div class="prev-card"><div class="pv-ico">📅</div><div class="pv-lbl">Previsión 7 días</div><div class="pv-val">${prevSem.toFixed(0)}€</div><div class="pv-sub">${citasSem.length} citas</div></div>
-    <div class="prev-card"><div class="pv-ico">🔮</div><div class="pv-lbl">Total pendiente</div><div class="pv-val">${prevTotal.toFixed(0)}€</div><div class="pv-sub">${citasFuturas.length} citas</div></div>
+    <div class="prev-card"><div class="pv-ico"></div><div class="pv-lbl">Previsión 7 días</div><div class="pv-val">${prevSem.toFixed(0)}€</div><div class="pv-sub">${citasSem.length} citas</div></div>
+    <div class="prev-card"><div class="pv-ico"></div><div class="pv-lbl">Total pendiente</div><div class="pv-val">${prevTotal.toFixed(0)}€</div><div class="pv-sub">${citasFuturas.length} citas</div></div>
   `;
 
   // Por día
@@ -4843,7 +4852,7 @@ function renderPrevision(){
       </div>
       <div style="text-align:right;min-width:90px;">
         <div style="font-family:'Bebas Neue',cursive;font-size:16px;color:var(--plata);">${previsto.toFixed(0)}€</div>
-        ${ingresado>0?`<div style="font-size:10px;color:var(--verde);">✓ ${ingresado.toFixed(0)}€ cobrado</div>`:''}
+        ${ingresado>0?`<div style="font-size:10px;color:var(--verde);"> ${ingresado.toFixed(0)}€ cobrado</div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -4857,13 +4866,13 @@ function renderPrevision(){
   srvPend.innerHTML=srvArr.length?srvArr.map(([srv,{n,total}])=>`
     <div style="padding:9px 12px;background:var(--surface2);border:1px solid var(--borde);border-radius:7px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">✂ ${srv}</span>
+        <span style="font-size:12px;font-weight:600;"> ${srv}</span>
         <span style="font-family:'Bebas Neue',cursive;font-size:16px;color:var(--plata);">${total.toFixed(0)}€ <span style="font-size:10px;color:var(--texto-dim);">(${n} cita${n!==1?'s':''})</span></span>
       </div>
       <div style="height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;">
         <div style="height:100%;width:${Math.round(total/maxTotal*100)}%;background:linear-gradient(90deg,var(--plata-oscuro),var(--plata));border-radius:3px;"></div>
       </div>
-    </div>`).join(''):'<div class="empty" style="padding:20px 0;"><div class="empty-ico">✅</div>No hay citas pendientes de cobrar</div>';
+    </div>`).join(''):'<div class="empty" style="padding:20px 0;"><div class="empty-ico"></div>No hay citas pendientes de cobrar</div>';
 }
 
 // ===== CIERRE SEMANAL =====
@@ -4946,7 +4955,7 @@ function exportarCierreSemanaConFecha(lunesStr){
     .sort((a,b)=>a.fecha.localeCompare(b.fecha))
     .forEach(m=>filas.push([m.fecha,m.tipo,m.desc,m.importe.toFixed(2),m.metodo]));
   descargarCSV(filas,'cierre_semana_'+rango.replace(/ /g,'_')+'.csv');
-  notif('Cierre semanal exportado','📊');
+  notif('Cierre semanal exportado','');
 }
 
 // ===== PWA SERVICE WORKER =====
@@ -4959,7 +4968,7 @@ function registrarSW(){
         console.log('SW registrado — modo offline activo');
         reg.addEventListener('updatefound',()=>{
           const nw=reg.installing;
-          nw.addEventListener('statechange',()=>{if(nw.state==='installed'&&navigator.serviceWorker.controller)notif('App actualizada — recarga para ver los cambios','🔄');});
+          nw.addEventListener('statechange',()=>{if(nw.state==='installed'&&navigator.serviceWorker.controller)notif('App actualizada — recarga para ver los cambios','');});
         });
       })
       .catch(()=>{
