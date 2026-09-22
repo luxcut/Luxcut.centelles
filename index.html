@@ -4899,4 +4899,86 @@ function renderCierreSemanal(){
   hist.innerHTML='';
   for(let i=1;i<=8;i++){
     const info=getInfoSemana(getLunesSemana(-i));
-    if(!info.citas.length&&!info.ingresos)co
+    if(!info.citas.length&&!info.ingresos)continue;
+    const card=document.createElement('div');
+    renderCardCierre(info,card,false);
+    hist.appendChild(card);
+  }
+}
+function renderCardCierre(info,cont,esActual){
+  const {lunes,sab,citas,ingresos,totalGastos,balance,porDia}=info;
+  const rango=lunes.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' – '+sab.toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'});
+  const maxIng=Math.max(...porDia.map(d=>d.ingresos),1);
+  const bars=porDia.map(d=>{const h=Math.max(Math.round(d.ingresos/maxIng*36),d.ingresos>0?4:1);return`<div class="cs-bar ${d.ingresos===maxIng&&d.ingresos>0?'cs-max':''}" style="height:${h}px;" title="${fmtF(d.fecha)}: ${d.ingresos.toFixed(0)}€"></div>`;}).join('');
+  cont.className='cierre-sem-card';
+  cont.innerHTML=`
+    <div class="cs-top">
+      <div>
+        <div class="cs-rango">${esActual?'<span style="color:var(--plata);font-size:11px;">SEMANA ACTUAL — </span>':''}${rango}</div>
+        <div style="font-size:11px;color:var(--texto-dim);margin-top:2px;">${citas.length} cita${citas.length!==1?'s':''} · Balance: <span style="color:${balance>=0?'var(--verde)':'var(--rojo)'};">${balance>=0?'+':''}${balance.toFixed(2)}€</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div class="cs-total">${ingresos.toFixed(0)}€</div>
+        ${totalGastos>0?`<div style="font-size:10px;color:var(--rojo);">−${totalGastos.toFixed(0)}€ gastos</div>`:''}
+      </div>
+    </div>
+    <div class="cs-bars">${bars}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;font-size:11px;color:var(--texto-dim);">
+      ${['Lu','Ma','Mi','Ju','Vi','Sá'].map((d,i)=>`<span style="flex:1;text-align:center;">${d}<br><strong style="color:var(--texto);">${porDia[i]?porDia[i].citas:0}</strong></span>`).join('')}
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px;">
+      <button class="btn-s" style="flex:1;" onclick="exportarCierreSemanaConFecha('${fStr(info.lunes)}')">⬇ Exportar</button>
+    </div>
+  `;
+}
+function exportarCierreSemana(){
+  exportarCierreSemanaConFecha(fStr(getLunesSemana(0)));
+}
+function exportarCierreSemanaConFecha(lunesStr){
+  const lunes=new Date(lunesStr+'T00:00:00');
+  const info=getInfoSemana(lunes);
+  const rango=fStr(lunes)+' al '+fStr(info.sab);
+  const filas=[
+    ['CIERRE SEMANAL','Semana del '+rango,'','',''],
+    ['','','','',''],
+    ['DÍA','CITAS','INGRESOS €','GASTOS €','BALANCE €']
+  ];
+  info.porDia.forEach(d=>{
+    const gas=E.movimientos.filter(m=>m.fecha===d.fecha&&m.tipo==='gasto').reduce((a,m)=>a+m.importe,0);
+    filas.push([fmtF(d.fecha),d.citas,d.ingresos.toFixed(2),gas.toFixed(2),(d.ingresos-gas).toFixed(2)]);
+  });
+  filas.push(['','','','','']);
+  filas.push(['TOTAL',info.citas.length,info.ingresos.toFixed(2),info.totalGastos.toFixed(2),info.balance.toFixed(2)]);
+  filas.push(['','','','','']);
+  filas.push(['DETALLE MOVIMIENTOS','','','','']);
+  filas.push(['Fecha','Tipo','Descripción','Importe €','Método']);
+  E.movimientos.filter(m=>info.fechas.includes(m.fecha))
+    .sort((a,b)=>a.fecha.localeCompare(b.fecha))
+    .forEach(m=>filas.push([m.fecha,m.tipo,m.desc,m.importe.toFixed(2),m.metodo]));
+  descargarCSV(filas,'cierre_semana_'+rango.replace(/ /g,'_')+'.csv');
+  notif('Cierre semanal exportado','');
+}
+
+// ===== PWA SERVICE WORKER =====
+function registrarSW(){
+  if('serviceWorker' in navigator){
+    // El SW necesita un archivo externo para funcionar en HTTPS/GitHub Pages.
+    // Intentamos registrar sw.js si existe junto al index.html
+    navigator.serviceWorker.register('./sw.js',{scope:'./'})
+      .then(reg=>{
+        console.log('SW registrado — modo offline activo');
+        reg.addEventListener('updatefound',()=>{
+          const nw=reg.installing;
+          nw.addEventListener('statechange',()=>{if(nw.state==='installed'&&navigator.serviceWorker.controller)notif('App actualizada — recarga para ver los cambios','');});
+        });
+      })
+      .catch(()=>{
+        // sw.js no existe todavía — modo offline no disponible, pero la app funciona normal
+        console.log('sw.js no encontrado — modo offline desactivado. Sube sw.js para activarlo.');
+      });
+  }
+}
+registrarSW();
+</script>
+</body>
+</html>
